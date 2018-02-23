@@ -1,4 +1,5 @@
 import React from 'react';
+import Textarea from "react-textarea-autosize";
 import { connect } from "react-redux";
 import {saveCard } from "./redux/actions";
 
@@ -13,10 +14,10 @@ class ConnectedCard extends React.Component {
     render() {
         const {name, desc} = this.state;
         return <li className="card">
-            <textarea className="name" value={name} onChange={this.onChange}></textarea>
-            <textarea className="desc" value={desc} onChange={this.onChange}></textarea>
-            <div>
-                <button onClick={this.onSaveClick}>save</button>
+            <Textarea className="desc" value={desc} onChange={this.onChange}></Textarea>
+            <div className="title-and-buttons">
+                <Textarea className="name" value={name} onChange={this.onChange}></Textarea>
+                <button className="save" onClick={this.onSaveClick}>save</button>
             </div>
         </li>
     }

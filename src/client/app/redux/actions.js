@@ -3,7 +3,7 @@ export const BOARD_LOADED = "BOARD_LOADED";
 export const LOAD_BOARD = "LOAD_BOARD";
 
 export function saveCard(card) {
-    window.Trello.put("/cards/" + card.id, card);
+    Trello.put("/cards/" + card.id, card);
     return {
         type: SAVE_CARD,
         card
@@ -12,7 +12,7 @@ export function saveCard(card) {
 
 export function loadBoard(id) {
     return dispatch => {
-        return window.Trello.authorize({
+        return Trello.authorize({
             type: 'popup',
             name: 'Getting Started Application',
             scope: {

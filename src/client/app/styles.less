@@ -1,0 +1,46 @@
+@FONT_SIZE: 14px;
+@MIN_CARD_HEIGHT: 70;
+@MARGIN: 10px;
+@TITLE_AND_BUTTONS_WIDTH: 25%;
+
+ul, body {
+  padding: 0;
+  margin: 0;
+}
+li {
+  list-style: none;
+}
+.card {
+  width: calc(100% - (4*@MARGIN));
+  background-color: #E2E4E6;
+  margin: @MARGIN;
+  padding: @MARGIN;
+  > * {
+    display: inline-block;
+  }
+  textarea {
+    display: inline-block;
+    height: @MIN_CARD_HEIGHT;
+    font-size: @FONT_SIZE;
+    vertical-align: top;
+    margin: 0;
+  }
+  .desc {
+    width: calc(100% - @TITLE_AND_BUTTONS_WIDTH - 3*@MARGIN);
+  }
+  .title-and-buttons {
+    width: @TITLE_AND_BUTTONS_WIDTH;
+    > * {
+      width: 100%;
+      margin: 0 0 @MARGIN 0;
+      font-size: 18px;
+    }
+    padding: 0 10px;
+    margin: 0;
+
+    .save {
+      margin: 0;
+      display: block;
+    }
+  }
+}

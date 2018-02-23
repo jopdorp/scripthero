@@ -8,7 +8,7 @@ class ConnectedApp extends React.Component {
         super();
 
         this.state = {
-            id: ""
+            id: "ttKuW0v3"
         };
 
         this.onLoadClick = this.onLoadClick.bind(this)

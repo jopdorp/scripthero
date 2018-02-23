@@ -21376,7 +21376,7 @@ var ConnectedApp = function (_React$Component) {
 
             return _react2.default.createElement(
                 'div',
-                { className: this.state.isPrintView ? "print" : "" },
+                { className: this.state.isPrintView ? "script-hero print" : "script-hero" },
                 _react2.default.createElement(
                     'div',
                     { className: 'board-selection' },
@@ -21394,8 +21394,8 @@ var ConnectedApp = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'button',
-                    { onClick: this.onPrintViewClick },
-                    'print view'
+                    { className: 'print-view', onClick: this.onPrintViewClick },
+                    this.state.isPrintView ? "edit" : "print view"
                 ),
                 _react2.default.createElement(_Board2.default, null)
             );
@@ -22042,7 +22042,7 @@ exports = module.exports = __webpack_require__(79)(false);
 
 
 // module
-exports.push([module.i, ".bordered {\n  border: dashed #E2E4E6 1px;\n}\n.right-bordered {\n  border-right: dashed #E2E4E6 1px;\n}\n.textarea-wide {\n  width: calc(100% - 15% - 2 * 10px - 3px);\n}\nul,\nbody {\n  padding: 0;\n  margin: 0;\n}\nh2 {\n  font-weight: bolder;\n  font-size: 1.8em;\n  text-align: center;\n}\nli {\n  list-style: none;\n  margin: 10px;\n  padding: 10px;\n}\n.board-selection {\n  text-align: center;\n  font-size: 24px;\n  margin: 40px;\n}\n.card {\n  border: dashed #E2E4E6 1px;\n  width: calc(100% - (4 * 10px));\n}\n.card > *:not(h3) {\n  display: inline-block;\n}\n.card textarea,\n.card input {\n  background: none;\n  border: none;\n  resize: none;\n  width: calc(100% - 15% - 2 * 10px - 3px);\n  overflow: hidden;\n  outline: none;\n}\n.card textarea {\n  display: inline-block;\n  height: 70;\n  font-size: 14px;\n  vertical-align: top;\n  margin: 0;\n}\n.card .name {\n  border-right: dashed #E2E4E6 1px;\n  display: block;\n  font-size: 1.17em;\n  font-weight: bold;\n  padding-bottom: 10px;\n  padding-right: 12px;\n}\n.card .desc {\n  border-right: dashed #E2E4E6 1px;\n  padding-right: 10px;\n}\n.card .title-and-buttons {\n  width: 15%;\n  padding: 0 0 0 10px;\n  margin: 0;\n}\n.card .title-and-buttons > * {\n  width: 100%;\n  margin: 0 0 10px 0;\n  font-size: 18px;\n}\n.card .title-and-buttons .save {\n  margin: 0;\n  display: block;\n}\n.print * {\n  border: none;\n  border-right: none!important;\n}\n.print .card .desc {\n  width: 100%;\n}\n.print .title-and-buttons,\n.print .board-selection {\n  display: none;\n}\n", ""]);
+exports.push([module.i, ".bordered {\n  border: dashed #E2E4E6 1px;\n}\n.right-bordered {\n  border-right: dashed #E2E4E6 1px;\n}\n.textarea-wide {\n  width: calc(100% - 15% - 2 * 10px - 3px);\n}\nul,\nbody {\n  padding: 0;\n  margin: 0;\n}\nh2 {\n  font-weight: bolder;\n  font-size: 1.8em;\n  text-align: center;\n}\nli {\n  list-style: none;\n  margin: 10px;\n  padding: 10px;\n}\ntextarea,\ninput,\nbutton {\n  outline: none;\n}\n.board-selection {\n  text-align: center;\n  font-size: 24px;\n  margin: 40px;\n}\n.script-hero {\n  text-align: center;\n}\n.card {\n  border: dashed #E2E4E6 1px;\n  width: calc(100% - (4 * 10px));\n}\n.card > *:not(h3) {\n  display: inline-block;\n}\n.card textarea,\n.card input {\n  background: none;\n  border: none;\n  resize: none;\n  width: calc(100% - 15% - 2 * 10px - 3px);\n  overflow: hidden;\n}\n.card textarea {\n  display: inline-block;\n  height: 70;\n  font-size: 14px;\n  vertical-align: top;\n  margin: 0;\n}\n.card .name {\n  border-right: dashed #E2E4E6 1px;\n  display: block;\n  font-size: 1.17em;\n  font-weight: bold;\n  padding-bottom: 10px;\n  padding-right: 12px;\n}\n.card .desc {\n  border-right: dashed #E2E4E6 1px;\n  padding-right: 10px;\n}\n.card .title-and-buttons {\n  width: 15%;\n  padding: 0 0 0 10px;\n  margin: 0;\n}\n.card .title-and-buttons > * {\n  width: 100%;\n  margin: 0 0 10px 0;\n  font-size: 18px;\n}\n.card .title-and-buttons .save {\n  margin: 0;\n  display: block;\n}\n.print * {\n  border: none;\n  border-right: none!important;\n}\n.print .card .desc {\n  width: 100%;\n}\n.print .title-and-buttons,\n.print .board-selection {\n  display: none;\n}\n", ""]);
 
 // exports
 

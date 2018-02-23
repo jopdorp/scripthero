@@ -18,13 +18,13 @@ class ConnectedApp extends React.Component {
 
     render() {
         const {id, isPrintView} = this.state;
-        return <div className={this.state.isPrintView ? "print" : ""}>
+        return <div className={this.state.isPrintView ? "script-hero print" : "script-hero"}>
             <div className='board-selection'>
                 <p>The board id is the second part of the board's url like: https://trello.com/b/ttKuW0v3/burn-it</p>
                 <input placeholder="ttKuW0v3" value={id} onChange={this.onIdChange}/>
                 <button onClick={this.onLoadClick}>Load</button>
             </div>
-            <button onClick={this.onPrintViewClick}>print view</button>
+            <button className='print-view' onClick={this.onPrintViewClick}>{this.state.isPrintView ? "edit" : "print view"}</button>
             <Board/>
         </div>
     }

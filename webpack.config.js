@@ -29,7 +29,10 @@ const config = {
             }
         ]
     },
-    devtool: 'source-map'
+    devtool: 'source-map',
+    devServer: {
+        port: process.env.PORT || 8080
+    }
 };
 
 module.exports = config;

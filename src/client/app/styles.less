@@ -5,40 +5,46 @@
 .bordered {
   border: dashed #E2E4E6 1px;
 }
+
 .right-bordered {
   border-right: dashed #E2E4E6 1px;
 }
+
 .textarea-wide {
-  width: calc(100% - @BUTTON_WIDTH - 2*@MARGIN - 3px);
+  width: calc(100% - @BUTTON_WIDTH - 2 * @MARGIN - 3px);
 }
 
 ul, body {
   padding: 0;
   margin: 0;
 }
+
 h2 {
   font-weight: bolder;
   font-size: 1.8em;
   text-align: center;
 }
+
 li {
   list-style: none;
   margin: @MARGIN;
   padding: @MARGIN;
 }
+
 .board-selection {
   text-align: center;
   font-size: 24px;
   margin: 4*@MARGIN
 }
+
 .card {
   .bordered;
-  width: calc(100% - (4*@MARGIN));
+  width: calc(100% - (4 * @MARGIN));
   > *:not(h3) {
     display: inline-block;
   }
-  textarea, input{
-    background:none;
+  textarea, input {
+    background: none;
     border: none;
     resize: none;
     .textarea-wide;
@@ -77,5 +83,21 @@ li {
       margin: 0;
       display: block;
     }
+  }
+}
+
+.print {
+  * {
+    border: none;
+    border-right: none!important;
+  }
+
+  .card {
+    .desc {
+      width: 100%;
+    }
+  }
+  .title-and-buttons, .board-selection {
+    display: none;
   }
 }

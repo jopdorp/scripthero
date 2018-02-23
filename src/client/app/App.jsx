@@ -11,18 +11,20 @@ class ConnectedApp extends React.Component {
             id: "ttKuW0v3"
         };
 
-        this.onLoadClick = this.onLoadClick.bind(this)
-        this.onIdChange = this.onIdChange.bind(this)
+        this.onLoadClick = this.onLoadClick.bind(this);
+        this.onIdChange = this.onIdChange.bind(this);
+        this.onPrintViewClick = this.onPrintViewClick.bind(this);
     }
 
     render() {
-        const {id} = this.state;
-        return <div>
+        const {id, isPrintView} = this.state;
+        return <div className={this.state.isPrintView ? "print" : ""}>
             <div className='board-selection'>
                 <p>The board id is the second part of the board's url like: https://trello.com/b/ttKuW0v3/burn-it</p>
                 <input placeholder="ttKuW0v3" value={id} onChange={this.onIdChange}/>
                 <button onClick={this.onLoadClick}>Load</button>
             </div>
+            <button onClick={this.onPrintViewClick}>print view</button>
             <Board/>
         </div>
     }
@@ -33,6 +35,10 @@ class ConnectedApp extends React.Component {
 
     onIdChange(e) {
         this.setState({id: e.target.value});
+    }
+
+    onPrintViewClick(e){
+        this.setState({isPrintView:!this.state.isPrintView})
     }
 }
 

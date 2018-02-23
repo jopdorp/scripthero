@@ -21363,17 +21363,20 @@ var ConnectedApp = function (_React$Component) {
 
         _this.onLoadClick = _this.onLoadClick.bind(_this);
         _this.onIdChange = _this.onIdChange.bind(_this);
+        _this.onPrintViewClick = _this.onPrintViewClick.bind(_this);
         return _this;
     }
 
     _createClass(ConnectedApp, [{
         key: 'render',
         value: function render() {
-            var id = this.state.id;
+            var _state = this.state,
+                id = _state.id,
+                isPrintView = _state.isPrintView;
 
             return _react2.default.createElement(
                 'div',
-                null,
+                { className: this.state.isPrintView ? "print" : "" },
                 _react2.default.createElement(
                     'div',
                     { className: 'board-selection' },
@@ -21389,6 +21392,11 @@ var ConnectedApp = function (_React$Component) {
                         'Load'
                     )
                 ),
+                _react2.default.createElement(
+                    'button',
+                    { onClick: this.onPrintViewClick },
+                    'print view'
+                ),
                 _react2.default.createElement(_Board2.default, null)
             );
         }
@@ -21401,6 +21409,11 @@ var ConnectedApp = function (_React$Component) {
         key: 'onIdChange',
         value: function onIdChange(e) {
             this.setState({ id: e.target.value });
+        }
+    }, {
+        key: 'onPrintViewClick',
+        value: function onPrintViewClick(e) {
+            this.setState({ isPrintView: !this.state.isPrintView });
         }
     }]);
 
@@ -22029,7 +22042,7 @@ exports = module.exports = __webpack_require__(79)(false);
 
 
 // module
-exports.push([module.i, ".bordered {\n  border: dashed #E2E4E6 1px;\n}\n.right-bordered {\n  border-right: dashed #E2E4E6 1px;\n}\n.textarea-wide {\n  width: calc(100% - 15% - 2*10px - 3px);\n}\nul,\nbody {\n  padding: 0;\n  margin: 0;\n}\nh2 {\n  font-weight: bolder;\n  font-size: 1.8em;\n  text-align: center;\n}\nli {\n  list-style: none;\n  margin: 10px;\n  padding: 10px;\n}\n.board-selection {\n  text-align: center;\n  font-size: 24px;\n  margin: 40px;\n}\n.card {\n  border: dashed #E2E4E6 1px;\n  width: calc(100% - (4*10px));\n}\n.card > *:not(h3) {\n  display: inline-block;\n}\n.card textarea,\n.card input {\n  background: none;\n  border: none;\n  resize: none;\n  width: calc(100% - 15% - 2*10px - 3px);\n  overflow: hidden;\n  outline: none;\n}\n.card textarea {\n  display: inline-block;\n  height: 70;\n  font-size: 14px;\n  vertical-align: top;\n  margin: 0;\n}\n.card .name {\n  border-right: dashed #E2E4E6 1px;\n  display: block;\n  font-size: 1.17em;\n  font-weight: bold;\n  padding-bottom: 10px;\n  padding-right: 12px;\n}\n.card .desc {\n  border-right: dashed #E2E4E6 1px;\n  padding-right: 10px;\n}\n.card .title-and-buttons {\n  width: 15%;\n  padding: 0 0 0 10px;\n  margin: 0;\n}\n.card .title-and-buttons > * {\n  width: 100%;\n  margin: 0 0 10px 0;\n  font-size: 18px;\n}\n.card .title-and-buttons .save {\n  margin: 0;\n  display: block;\n}\n", ""]);
+exports.push([module.i, ".bordered {\n  border: dashed #E2E4E6 1px;\n}\n.right-bordered {\n  border-right: dashed #E2E4E6 1px;\n}\n.textarea-wide {\n  width: calc(100% - 15% - 2 * 10px - 3px);\n}\nul,\nbody {\n  padding: 0;\n  margin: 0;\n}\nh2 {\n  font-weight: bolder;\n  font-size: 1.8em;\n  text-align: center;\n}\nli {\n  list-style: none;\n  margin: 10px;\n  padding: 10px;\n}\n.board-selection {\n  text-align: center;\n  font-size: 24px;\n  margin: 40px;\n}\n.card {\n  border: dashed #E2E4E6 1px;\n  width: calc(100% - (4 * 10px));\n}\n.card > *:not(h3) {\n  display: inline-block;\n}\n.card textarea,\n.card input {\n  background: none;\n  border: none;\n  resize: none;\n  width: calc(100% - 15% - 2 * 10px - 3px);\n  overflow: hidden;\n  outline: none;\n}\n.card textarea {\n  display: inline-block;\n  height: 70;\n  font-size: 14px;\n  vertical-align: top;\n  margin: 0;\n}\n.card .name {\n  border-right: dashed #E2E4E6 1px;\n  display: block;\n  font-size: 1.17em;\n  font-weight: bold;\n  padding-bottom: 10px;\n  padding-right: 12px;\n}\n.card .desc {\n  border-right: dashed #E2E4E6 1px;\n  padding-right: 10px;\n}\n.card .title-and-buttons {\n  width: 15%;\n  padding: 0 0 0 10px;\n  margin: 0;\n}\n.card .title-and-buttons > * {\n  width: 100%;\n  margin: 0 0 10px 0;\n  font-size: 18px;\n}\n.card .title-and-buttons .save {\n  margin: 0;\n  display: block;\n}\n.print * {\n  border: none;\n  border-right: none!important;\n}\n.print .card .desc {\n  width: 100%;\n}\n.print .title-and-buttons,\n.print .board-selection {\n  display: none;\n}\n", ""]);
 
 // exports
 

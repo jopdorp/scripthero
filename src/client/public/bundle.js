@@ -2009,7 +2009,7 @@ function verifyPlainObject(value, displayName, methodName) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(31);
-module.exports = __webpack_require__(77);
+module.exports = __webpack_require__(78);
 
 
 /***/ }),
@@ -21450,7 +21450,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(7);
 
-var _List = __webpack_require__(82);
+var _List = __webpack_require__(75);
 
 var _List2 = _interopRequireDefault(_List);
 
@@ -21485,13 +21485,84 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactTextareaAutosize = __webpack_require__(76);
+var _Card = __webpack_require__(76);
+
+var _Card2 = _interopRequireDefault(_Card);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var List = function (_React$Component) {
+    _inherits(List, _React$Component);
+
+    function List() {
+        _classCallCheck(this, List);
+
+        return _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).apply(this, arguments));
+    }
+
+    _createClass(List, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                    'ul',
+                    { className: 'list' },
+                    _react2.default.createElement(
+                        'li',
+                        null,
+                        _react2.default.createElement(
+                            'h2',
+                            null,
+                            this.props.name
+                        )
+                    ),
+                    this.props.cards.map(function (card) {
+                        return _react2.default.createElement(_Card2.default, _extends({ key: card.id }, card));
+                    })
+                )
+            );
+        }
+    }]);
+
+    return List;
+}(_react2.default.Component);
+
+exports.default = List;
+
+/***/ }),
+/* 76 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactTextareaAutosize = __webpack_require__(77);
 
 var _reactTextareaAutosize2 = _interopRequireDefault(_reactTextareaAutosize);
 
@@ -21578,7 +21649,7 @@ var Card = (0, _reactRedux.connect)(null, mapDispatchToProps)(ConnectedCard);
 exports.default = Card;
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21984,11 +22055,11 @@ TextareaAutosize.defaultProps = {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0)))
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(78);
+var content = __webpack_require__(79);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -22002,7 +22073,7 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(80)(content, options);
+var update = __webpack_require__(81)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -22034,21 +22105,21 @@ if(false) {
 }
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(79)(false);
+exports = module.exports = __webpack_require__(80)(false);
 // imports
 
 
 // module
-exports.push([module.i, ".bordered {\n  border: dashed #E2E4E6 1px;\n}\n.right-bordered {\n  border-right: dashed #E2E4E6 1px;\n}\n.textarea-wide {\n  width: calc(100% - 15% - 2 * 10px - 3px);\n}\nul,\nbody {\n  padding: 0;\n  margin: 0;\n}\nh2 {\n  font-weight: bolder;\n  font-size: 1.8em;\n  text-align: center;\n}\nli {\n  list-style: none;\n  margin: 10px;\n  padding: 10px;\n}\ntextarea,\ninput,\nbutton {\n  outline: none;\n}\n.board-selection {\n  text-align: center;\n  font-size: 24px;\n  margin: 40px;\n}\n.script-hero {\n  text-align: center;\n}\n.card {\n  border: dashed #E2E4E6 1px;\n  width: calc(100% - (4 * 10px));\n}\n.card > *:not(h3) {\n  display: inline-block;\n}\n.card textarea,\n.card input {\n  background: none;\n  border: none;\n  resize: none;\n  width: calc(100% - 15% - 2 * 10px - 3px);\n  overflow: hidden;\n}\n.card textarea {\n  display: inline-block;\n  height: 70;\n  font-size: 14px;\n  vertical-align: top;\n  margin: 0;\n}\n.card .name {\n  border-right: dashed #E2E4E6 1px;\n  display: block;\n  font-size: 1.17em;\n  font-weight: bold;\n  padding-bottom: 10px;\n  padding-right: 12px;\n}\n.card .desc {\n  border-right: dashed #E2E4E6 1px;\n  padding-right: 10px;\n}\n.card .title-and-buttons {\n  width: 15%;\n  padding: 0 0 0 10px;\n  margin: 0;\n}\n.card .title-and-buttons > * {\n  width: 100%;\n  margin: 0 0 10px 0;\n  font-size: 18px;\n}\n.card .title-and-buttons .save {\n  margin: 0;\n  display: block;\n}\n.print * {\n  border: none;\n  border-right: none!important;\n}\n.print .card .desc {\n  width: 100%;\n}\n.print .title-and-buttons,\n.print .board-selection {\n  display: none;\n}\n", ""]);
+exports.push([module.i, ".bordered {\n  border: dashed #E2E4E6 1px;\n}\n.right-bordered {\n  border-right: dashed #E2E4E6 1px;\n}\n.textarea-wide {\n  width: calc(100% - 15% - 2 * 10px - 3px);\n}\nul,\nbody {\n  padding: 0;\n  margin: 0;\n}\nh2 {\n  font-weight: bolder;\n  font-size: 1.8em;\n  text-align: center;\n  page-break-before: always;\n}\nli {\n  list-style: none;\n  margin: 10px;\n  padding: 10px;\n}\ntextarea,\ninput,\nbutton {\n  outline: none;\n}\n.board-selection {\n  text-align: center;\n  font-size: 24px;\n  margin: 40px;\n}\n.script-hero {\n  text-align: center;\n}\n.card {\n  border: dashed #E2E4E6 1px;\n  width: calc(100% - (4 * 10px));\n}\n.card > *:not(h3) {\n  display: inline-block;\n}\n.card textarea,\n.card input {\n  background: none;\n  border: none;\n  resize: none;\n  width: calc(100% - 15% - 2 * 10px - 3px);\n  overflow: hidden;\n}\n.card textarea {\n  display: inline-block;\n  height: 70;\n  font-size: 14px;\n  vertical-align: top;\n  margin: 0;\n}\n.card .name {\n  border-right: dashed #E2E4E6 1px;\n  display: block;\n  font-size: 1.17em;\n  font-weight: bold;\n  padding-bottom: 10px;\n  padding-right: 12px;\n}\n.card .desc {\n  border-right: dashed #E2E4E6 1px;\n  padding-right: 10px;\n}\n.card .title-and-buttons {\n  width: 15%;\n  padding: 0 0 0 10px;\n  margin: 0;\n}\n.card .title-and-buttons > * {\n  width: 100%;\n  margin: 0 0 10px 0;\n  font-size: 18px;\n}\n.card .title-and-buttons .save {\n  margin: 0;\n  display: block;\n}\n.print * {\n  border: none;\n  border-right: none!important;\n}\n.print .card .desc {\n  width: 100%;\n}\n.print .title-and-buttons,\n.print .board-selection {\n  display: none;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, exports) {
 
 /*
@@ -22130,7 +22201,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -22196,7 +22267,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(81);
+var	fixUrls = __webpack_require__(82);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -22512,7 +22583,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 81 */
+/* 82 */
 /***/ (function(module, exports) {
 
 
@@ -22605,77 +22676,6 @@ module.exports = function (css) {
 	return fixedCss;
 };
 
-
-/***/ }),
-/* 82 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _Card = __webpack_require__(75);
-
-var _Card2 = _interopRequireDefault(_Card);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var List = function (_React$Component) {
-    _inherits(List, _React$Component);
-
-    function List() {
-        _classCallCheck(this, List);
-
-        return _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).apply(this, arguments));
-    }
-
-    _createClass(List, [{
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                'li',
-                null,
-                _react2.default.createElement(
-                    'ul',
-                    { className: 'list' },
-                    _react2.default.createElement(
-                        'li',
-                        null,
-                        _react2.default.createElement(
-                            'h2',
-                            null,
-                            this.props.name
-                        )
-                    ),
-                    this.props.cards.map(function (card) {
-                        return _react2.default.createElement(_Card2.default, _extends({ key: card.id }, card));
-                    })
-                )
-            );
-        }
-    }]);
-
-    return List;
-}(_react2.default.Component);
-
-exports.default = List;
 
 /***/ })
 /******/ ]);

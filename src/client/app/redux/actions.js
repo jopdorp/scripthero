@@ -22,16 +22,31 @@ export function loadBoard(id) {
             expiration: 'never',
             success: () => {
                 Trello.get("/boards/" + id + "/cards", (cards) => {
-                    dispatch(boardLoaded(cards));
-                })
+                    Trello.get("/boards/" + id + "/lists", (lists) => {
+                        const listsById = lists.reduce((result, list) => {
+                            return {...result, [list.id]: {...list, cards: []}}
+                        }, {});
+
+                        const listsWithCards = cards.reduce((result, card) => {
+                            return {
+                                ...result,
+                                [card.idList]: {
+                                    cards: [...result[card.idList].cards, card],
+                                    name: listsById[card.idList].name
+                                }
+                            }
+                        }, listsById);
+                        dispatch(boardLoaded(listsWithCards));
+                    });
+                });
             }
         })
     }
 }
 
-export function boardLoaded(cards) {
+export function boardLoaded(lists) {
     return {
         type: BOARD_LOADED,
-        cards
-    };
+        lists
+    }
 }

@@ -810,9 +810,17 @@ function isPlainObject(value) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 exports.saveCard = saveCard;
 exports.loadBoard = loadBoard;
 exports.boardLoaded = boardLoaded;
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var SAVE_CARD = exports.SAVE_CARD = "SAVE_CARD";
 var BOARD_LOADED = exports.BOARD_LOADED = "BOARD_LOADED";
 var LOAD_BOARD = exports.LOAD_BOARD = "LOAD_BOARD";
@@ -837,17 +845,29 @@ function loadBoard(id) {
             expiration: 'never',
             success: function success() {
                 Trello.get("/boards/" + id + "/cards", function (cards) {
-                    dispatch(boardLoaded(cards));
+                    Trello.get("/boards/" + id + "/lists", function (lists) {
+                        var listsById = lists.reduce(function (result, list) {
+                            return _extends({}, result, _defineProperty({}, list.id, _extends({}, list, { cards: [] })));
+                        }, {});
+
+                        var listsWithCards = cards.reduce(function (result, card) {
+                            return _extends({}, result, _defineProperty({}, card.idList, {
+                                cards: [].concat(_toConsumableArray(result[card.idList].cards), [card]),
+                                name: listsById[card.idList].name
+                            }));
+                        }, listsById);
+                        dispatch(boardLoaded(listsWithCards));
+                    });
                 });
             }
         });
     };
 }
 
-function boardLoaded(cards) {
+function boardLoaded(lists) {
     return {
         type: BOARD_LOADED,
-        cards: cards
+        lists: lists
     };
 }
 
@@ -21241,12 +21261,10 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _actions = __webpack_require__(13);
 
 var initialState = {
-    cards: [],
+    lists: [],
     id: ""
 };
 
@@ -21256,7 +21274,13 @@ var rootReducer = function rootReducer() {
 
     switch (action.type) {
         case _actions.BOARD_LOADED:
-            return _extends({}, state, { cards: action.cards });
+            return {
+                lists: Object.keys(action.lists).map(function (listId) {
+                    return action.lists[listId];
+                }).sort(function (a, b) {
+                    return a.pos - b.pos;
+                })
+            };
     }
     return state;
 };
@@ -21409,25 +21433,25 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(7);
 
-var _Card = __webpack_require__(75);
+var _List = __webpack_require__(82);
 
-var _Card2 = _interopRequireDefault(_Card);
+var _List2 = _interopRequireDefault(_List);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ConnectedBoard = function ConnectedBoard(_ref) {
-    var cards = _ref.cards;
+    var lists = _ref.lists;
     return _react2.default.createElement(
         'ul',
         { className: 'board' },
-        cards.map(function (card) {
-            return _react2.default.createElement(_Card2.default, _extends({ key: card.id }, card));
+        lists.map(function (list) {
+            return _react2.default.createElement(_List2.default, _extends({ key: list.id }, list));
         })
     );
 };
 
 var mapStateToProps = function mapStateToProps(state) {
-    return { cards: state.cards };
+    return { lists: state.lists };
 };
 
 var Board = (0, _reactRedux.connect)(mapStateToProps)(ConnectedBoard);
@@ -22564,6 +22588,73 @@ module.exports = function (css) {
 	return fixedCss;
 };
 
+
+/***/ }),
+/* 82 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Card = __webpack_require__(75);
+
+var _Card2 = _interopRequireDefault(_Card);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var List = function (_React$Component) {
+    _inherits(List, _React$Component);
+
+    function List() {
+        _classCallCheck(this, List);
+
+        return _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).apply(this, arguments));
+    }
+
+    _createClass(List, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                    'h2',
+                    null,
+                    this.props.name
+                ),
+                _react2.default.createElement(
+                    'ul',
+                    { className: 'list' },
+                    this.props.cards.map(function (card) {
+                        return _react2.default.createElement(_Card2.default, _extends({ key: card.id }, card));
+                    })
+                )
+            );
+        }
+    }]);
+
+    return List;
+}(_react2.default.Component);
+
+exports.default = List;
 
 /***/ })
 /******/ ]);

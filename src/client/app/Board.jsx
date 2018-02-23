@@ -1,17 +1,17 @@
 import React from 'react';
 import {connect} from "react-redux";
-import Card from './Card.jsx';
+import List from './List.jsx';
 
-const ConnectedBoard = ({cards}) => (
+const ConnectedBoard = ({lists}) => (
     <ul className="board">
-        {cards.map(card => (
-            <Card key={card.id} {...card}></Card>
+        {lists.map(list => (
+            <List key={list.id} {...list}></List>
         ))}
     </ul>
 );
 
 const mapStateToProps = state => {
-    return {cards: state.cards};
+    return {lists: state.lists};
 };
 
 const Board = connect(mapStateToProps)(ConnectedBoard);

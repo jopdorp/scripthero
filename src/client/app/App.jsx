@@ -4,7 +4,7 @@ import Board from './Board.jsx';
 import {loadBoard} from "./redux/actions";
 
 class ConnectedApp extends React.Component {
-    constructor(){
+    constructor() {
         super();
 
         this.state = {
@@ -16,21 +16,23 @@ class ConnectedApp extends React.Component {
     }
 
     render() {
-        const { id } = this.state;
+        const {id} = this.state;
         return <div>
-            <p>The board id is the second part of the board's url like: https://trello.com/b/ttKuW0v3/burn-it</p>
-            <input placeholder="ttKuW0v3" value={id} onChange={this.onIdChange}/>
-            <button onClick={this.onLoadClick}>Load</button>
+            <div className='board-selection'>
+                <p>The board id is the second part of the board's url like: https://trello.com/b/ttKuW0v3/burn-it</p>
+                <input placeholder="ttKuW0v3" value={id} onChange={this.onIdChange}/>
+                <button onClick={this.onLoadClick}>Load</button>
+            </div>
             <Board/>
         </div>
     }
 
-    onLoadClick(e){
+    onLoadClick(e) {
         this.props.loadBoard(this.state.id);
     }
 
-    onIdChange(e){
-        this.setState({ id: e.target.value });
+    onIdChange(e) {
+        this.setState({id: e.target.value});
     }
 }
 

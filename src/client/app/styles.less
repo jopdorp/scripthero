@@ -1,22 +1,49 @@
 @FONT_SIZE: 14px;
 @MIN_CARD_HEIGHT: 70;
 @MARGIN: 10px;
-@TITLE_AND_BUTTONS_WIDTH: 25%;
+@BUTTON_WIDTH: 15%;
+.bordered {
+  border: dashed #E2E4E6 1px;
+}
+.right-bordered {
+  border-right: dashed #E2E4E6 1px;
+}
+.textarea-wide {
+  width: calc(100% - @BUTTON_WIDTH - 2*@MARGIN - 3px);
+}
 
 ul, body {
   padding: 0;
   margin: 0;
 }
+h2 {
+  font-weight: bolder;
+  font-size: 1.8em;
+  text-align: center;
+}
 li {
   list-style: none;
-}
-.card {
-  width: calc(100% - (4*@MARGIN));
-  background-color: #E2E4E6;
   margin: @MARGIN;
   padding: @MARGIN;
-  > * {
+}
+.board-selection {
+  text-align: center;
+  font-size: 24px;
+  margin: 4*@MARGIN
+}
+.card {
+  .bordered;
+  width: calc(100% - (4*@MARGIN));
+  > *:not(h3) {
     display: inline-block;
+  }
+  textarea, input{
+    background:none;
+    border: none;
+    resize: none;
+    .textarea-wide;
+    overflow: hidden;
+    outline: none;
   }
   textarea {
     display: inline-block;
@@ -25,19 +52,27 @@ li {
     vertical-align: top;
     margin: 0;
   }
+  .name {
+    .right-bordered;
+    display: block;
+    font-size: 1.17em;
+    font-weight: bold;
+    padding-bottom: @MARGIN;
+    padding-right: @MARGIN + 2;
+  }
   .desc {
-    width: calc(100% - @TITLE_AND_BUTTONS_WIDTH - 3*@MARGIN);
+    .right-bordered;
+    padding-right: @MARGIN;
   }
   .title-and-buttons {
-    width: @TITLE_AND_BUTTONS_WIDTH;
+    width: @BUTTON_WIDTH;
     > * {
       width: 100%;
       margin: 0 0 @MARGIN 0;
       font-size: 18px;
     }
-    padding: 0 10px;
+    padding: 0 0 0 10px;
     margin: 0;
-
     .save {
       margin: 0;
       display: block;

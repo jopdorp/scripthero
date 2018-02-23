@@ -21375,15 +21375,19 @@ var ConnectedApp = function (_React$Component) {
                 'div',
                 null,
                 _react2.default.createElement(
-                    'p',
-                    null,
-                    'The board id is the second part of the board\'s url like: https://trello.com/b/ttKuW0v3/burn-it'
-                ),
-                _react2.default.createElement('input', { placeholder: 'ttKuW0v3', value: id, onChange: this.onIdChange }),
-                _react2.default.createElement(
-                    'button',
-                    { onClick: this.onLoadClick },
-                    'Load'
+                    'div',
+                    { className: 'board-selection' },
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'The board id is the second part of the board\'s url like: https://trello.com/b/ttKuW0v3/burn-it'
+                    ),
+                    _react2.default.createElement('input', { placeholder: 'ttKuW0v3', value: id, onChange: this.onIdChange }),
+                    _react2.default.createElement(
+                        'button',
+                        { onClick: this.onLoadClick },
+                        'Load'
+                    )
                 ),
                 _react2.default.createElement(_Board2.default, null)
             );
@@ -21516,11 +21520,11 @@ var ConnectedCard = function (_React$Component) {
             return _react2.default.createElement(
                 "li",
                 { className: "card" },
+                _react2.default.createElement("input", { className: "name", value: name, onChange: this.onChange }),
                 _react2.default.createElement(_reactTextareaAutosize2.default, { className: "desc", value: desc, onChange: this.onChange }),
                 _react2.default.createElement(
                     "div",
                     { className: "title-and-buttons" },
-                    _react2.default.createElement(_reactTextareaAutosize2.default, { className: "name", value: name, onChange: this.onChange }),
                     _react2.default.createElement(
                         "button",
                         { className: "save", onClick: this.onSaveClick },
@@ -22025,7 +22029,7 @@ exports = module.exports = __webpack_require__(79)(false);
 
 
 // module
-exports.push([module.i, "ul,\nbody {\n  padding: 0;\n  margin: 0;\n}\nli {\n  list-style: none;\n}\n.card {\n  width: calc(100% - (4*10px));\n  background-color: #E2E4E6;\n  margin: 10px;\n  padding: 10px;\n}\n.card > * {\n  display: inline-block;\n}\n.card textarea {\n  display: inline-block;\n  height: 70;\n  font-size: 14px;\n  vertical-align: top;\n  margin: 0;\n}\n.card .desc {\n  width: calc(100% - 25% - 3*10px);\n}\n.card .title-and-buttons {\n  width: 25%;\n  padding: 0 10px;\n  margin: 0;\n}\n.card .title-and-buttons > * {\n  width: 100%;\n  margin: 0 0 10px 0;\n  font-size: 18px;\n}\n.card .title-and-buttons .save {\n  margin: 0;\n  display: block;\n}\n", ""]);
+exports.push([module.i, ".bordered {\n  border: dashed #E2E4E6 1px;\n}\n.right-bordered {\n  border-right: dashed #E2E4E6 1px;\n}\n.textarea-wide {\n  width: calc(100% - 15% - 2*10px - 3px);\n}\nul,\nbody {\n  padding: 0;\n  margin: 0;\n}\nh2 {\n  font-weight: bolder;\n  font-size: 1.8em;\n  text-align: center;\n}\nli {\n  list-style: none;\n  margin: 10px;\n  padding: 10px;\n}\n.board-selection {\n  text-align: center;\n  font-size: 24px;\n  margin: 40px;\n}\n.card {\n  border: dashed #E2E4E6 1px;\n  width: calc(100% - (4*10px));\n}\n.card > *:not(h3) {\n  display: inline-block;\n}\n.card textarea,\n.card input {\n  background: none;\n  border: none;\n  resize: none;\n  width: calc(100% - 15% - 2*10px - 3px);\n  overflow: hidden;\n  outline: none;\n}\n.card textarea {\n  display: inline-block;\n  height: 70;\n  font-size: 14px;\n  vertical-align: top;\n  margin: 0;\n}\n.card .name {\n  border-right: dashed #E2E4E6 1px;\n  display: block;\n  font-size: 1.17em;\n  font-weight: bold;\n  padding-bottom: 10px;\n  padding-right: 12px;\n}\n.card .desc {\n  border-right: dashed #E2E4E6 1px;\n  padding-right: 10px;\n}\n.card .title-and-buttons {\n  width: 15%;\n  padding: 0 0 0 10px;\n  margin: 0;\n}\n.card .title-and-buttons > * {\n  width: 100%;\n  margin: 0 0 10px 0;\n  font-size: 18px;\n}\n.card .title-and-buttons .save {\n  margin: 0;\n  display: block;\n}\n", ""]);
 
 // exports
 
@@ -22636,13 +22640,17 @@ var List = function (_React$Component) {
                 'li',
                 null,
                 _react2.default.createElement(
-                    'h2',
-                    null,
-                    this.props.name
-                ),
-                _react2.default.createElement(
                     'ul',
                     { className: 'list' },
+                    _react2.default.createElement(
+                        'li',
+                        null,
+                        _react2.default.createElement(
+                            'h2',
+                            null,
+                            this.props.name
+                        )
+                    ),
                     this.props.cards.map(function (card) {
                         return _react2.default.createElement(_Card2.default, _extends({ key: card.id }, card));
                     })

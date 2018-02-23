@@ -14,9 +14,9 @@ class ConnectedCard extends React.Component {
     render() {
         const {name, desc} = this.state;
         return <li className="card">
+            <input className="name" value={name} onChange={this.onChange}/>
             <Textarea className="desc" value={desc} onChange={this.onChange}></Textarea>
             <div className="title-and-buttons">
-                <Textarea className="name" value={name} onChange={this.onChange}></Textarea>
                 <button className="save" onClick={this.onSaveClick}>save</button>
             </div>
         </li>

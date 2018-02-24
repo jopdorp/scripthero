@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node app",
+    "watch": "webpack --watch & webpack-dev-server",
     "build": "webpack --progress --profile --colors",
     "clean": "rm -rf ./clien/public"
   },

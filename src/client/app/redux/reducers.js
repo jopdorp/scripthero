@@ -1,4 +1,4 @@
-import {BOARD_LOADED} from "./actions";
+import {BOARD_LOADED, TOGGLE_PRINT_VIEW} from "./actions";
 
 const initialState = {
     lists: [],
@@ -15,6 +15,8 @@ const rootReducer = (state = initialState, action) => {
                     return a.pos - b.pos;
                 })
             };
+        case TOGGLE_PRINT_VIEW:
+            return {...state, isPrintView: !state.isPrintView}
     }
     return state;
 };

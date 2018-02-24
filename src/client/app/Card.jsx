@@ -14,8 +14,14 @@ class ConnectedCard extends React.Component {
     render() {
         const {name, desc} = this.state;
         return <li className={this.state.isEdited ? 'card edited' : 'card'}>
-            <input className="name" value={name} onChange={this.onChange}/>
-            <Textarea className="desc" value={desc} onChange={this.onChange}></Textarea>
+            {this.props.isPrintView ?
+                <h3 className="name">{name}</h3>
+                : <input className="name" value={name} onChange={this.onChange}/>
+            }
+            {this.props.isPrintView ?
+                <div className="desc">{desc}</div>
+                : <Textarea className="desc" value={desc} onChange={this.onChange}/>
+            }
             <div className="title-and-buttons">
                 <button className="save" onClick={this.onSaveClick}>save</button>
             </div>
@@ -39,6 +45,11 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
+const mapStateToProps = state => {
+    return {isPrintView: state.isPrintView};
+};
 
-const Card = connect(null, mapDispatchToProps)(ConnectedCard);
+const CardWithDispatchConnection = connect(null, mapDispatchToProps)(ConnectedCard);
+const Card = connect(mapStateToProps)(CardWithDispatchConnection);
+
 export default Card;

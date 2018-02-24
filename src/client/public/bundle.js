@@ -21593,6 +21593,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(1);
@@ -21626,8 +21628,10 @@ var ConnectedCard = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (ConnectedCard.__proto__ || Object.getPrototypeOf(ConnectedCard)).call(this));
 
         _this.onSaveClick = _this.onSaveClick.bind(_this);
+        _this.onCancelClick = _this.onCancelClick.bind(_this);
         _this.onChange = _this.onChange.bind(_this);
         _this.state = props;
+        _this.originalState = _extends({}, _this.state);
         return _this;
     }
 
@@ -21658,6 +21662,11 @@ var ConnectedCard = function (_React$Component) {
                         "button",
                         { className: "save", onClick: this.onSaveClick },
                         "save"
+                    ),
+                    _react2.default.createElement(
+                        "button",
+                        { className: "cancel", onClick: this.onCancelClick },
+                        "cancel"
                     )
                 )
             );
@@ -21678,6 +21687,13 @@ var ConnectedCard = function (_React$Component) {
                 id = _state2.id;
 
             this.props.saveCard({ id: this.state.id, desc: this.state.desc, name: this.state.name });
+            this.setState({ isEdited: false });
+            this.originalState = _extends({}, this.state);
+        }
+    }, {
+        key: "onCancelClick",
+        value: function onCancelClick(e) {
+            this.setState(this.originalState);
             this.setState({ isEdited: false });
         }
     }]);

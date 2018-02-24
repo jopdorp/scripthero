@@ -7,8 +7,10 @@ class ConnectedCard extends React.Component {
     constructor(props) {
         super();
         this.onSaveClick = this.onSaveClick.bind(this);
+        this.onCancelClick = this.onCancelClick.bind(this);
         this.onChange = this.onChange.bind(this);
         this.state = props;
+        this.originalState = {...this.state};
     }
 
     render() {
@@ -24,6 +26,7 @@ class ConnectedCard extends React.Component {
             }
             <div className="title-and-buttons">
                 <button className="save" onClick={this.onSaveClick}>save</button>
+                <button className="cancel" onClick={this.onCancelClick}>cancel</button>
             </div>
         </li>
     }
@@ -35,6 +38,12 @@ class ConnectedCard extends React.Component {
     onSaveClick(e) {
         const {name, desc, id} = this.state;
         this.props.saveCard({id: this.state.id, desc: this.state.desc, name: this.state.name})
+        this.setState({isEdited: false});
+        this.originalState = {...this.state};
+    }
+
+    onCancelClick(e) {
+        this.setState(this.originalState);
         this.setState({isEdited: false});
     }
 }

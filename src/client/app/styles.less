@@ -5,12 +5,13 @@
 @MIN_CARD_HEIGHT: 70;
 @MARGIN: 10px;
 @BUTTON_WIDTH: 22%;
-.bordered {
-  border: dashed #E2E4E6 1px;
+
+body {
+  color: #000316;
 }
 
-.right-bordered {
-  border-right: dashed #E2E4E6 1px;
+.bordered {
+  border: dashed white 1px;
 }
 
 ul, body, ul ul {
@@ -35,6 +36,25 @@ textarea, input, button {
   outline: none;
 }
 
+button {
+  background-color: #A2AEA4;
+  border: none;
+  color:white;
+  &:hover,:focus {
+    color:white;
+    background-color: #5F7270;
+  }
+  &.button-primary{
+    background-color: #618778;
+    border: none;
+    &:hover,:focus{
+      color: white;
+      border: none;
+      background-color: #5F7270;
+    }
+  }
+}
+
 @HEADER_BUTTON_WIDTH: 110px;
 @HEADER_BUTTON_HEIGHT: 38px;
 .header {
@@ -45,9 +65,15 @@ textarea, input, button {
     vertical-align: top;
   }
   button {
-    width: @HEADER_BUTTON_WIDTH;
-    margin: @MARGIN;
+    width: 110px;
+    margin: 10px;
     height: 38px;
+    font-size: 14px;
+    padding: 0 24px;
+    text-align: center;
+    &:focus {
+      color:white;
+    }
   }
   input {
     height: @HEADER_BUTTON_HEIGHT - 4;
@@ -61,7 +87,7 @@ textarea, input, button {
 
 .menu .boards li {
   cursor: pointer;
-  background-color: #aaa;
+  background-color: #1E2B3E;
   display: inline-block;
   padding: 13px 32px;
   color: white;
@@ -69,10 +95,10 @@ textarea, input, button {
   font-weight: bold;
   font-size: 21px;
   text-transform: uppercase;
-  box-shadow: inset 0 0 2px 1px #333;
   transition: font-size 0.1s;
   &:hover {
-    box-shadow: inset 0 0 2px 3px #333;
+    background-color: #000316;
+    background-image: none!important;
   }
 }
 
@@ -100,7 +126,7 @@ textarea, input, button {
 .card {
   text-align: left;
   &.edited {
-    border-color: #F77;
+    border-color: #618778;
   }
 
   .bordered;
@@ -126,7 +152,6 @@ textarea, input, button {
     width: 100%;
   }
   .name {
-    .right-bordered;
     display: block;
     font-size: 1.17em;
     font-weight: bold;

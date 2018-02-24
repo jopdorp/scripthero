@@ -4,15 +4,11 @@
   "description": "Trello plugin to write scripts",
   "main": "index.js",
   "scripts": {
-    "prestart": "acorn build",
     "start": "webpack-dev-server",
     "prod": "webpack-dev-server",
     "dev": "webpack-dev-server",
-    "go": "node ./src/client",
     "build": "webpack --progress --profile --colors",
-    "clean": "rm -rf ./clien/public",
-    "heroku-prebuild": "npm install --production=false",
-    "postinstall": "NODE_ENV=production webpack"
+    "clean": "rm -rf ./clien/public"
   },
   "author": "Jegor van Opdorp",
   "license": "Commercial",

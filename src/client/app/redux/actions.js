@@ -1,4 +1,5 @@
 export const SAVE_CARD = 'SAVE_CARD';
+export const BOARDS_FETCHED = 'BOARDS_FETCHED';
 export const BOARD_LOADED = 'BOARD_LOADED';
 export const TOGGLE_PRINT_VIEW = 'TOGGLE_PRINT_VIEW';
 
@@ -10,9 +11,9 @@ export function saveCard(card) {
     };
 }
 
-export function loadBoard(id) {
+export function authorize() {
     return dispatch => {
-        return Trello.authorize({
+        Trello.authorize({
             type: 'popup',
             name: 'Getting Started Application',
             scope: {
@@ -20,21 +21,36 @@ export function loadBoard(id) {
                 write: 'true'
             },
             expiration: 'never',
-            success: fetchListsWithCards
+            success: fetchBoards
         });
 
-        function fetchListsWithCards(){
-            Trello.get('/boards/' + id + '/cards', fetchLists);
+        function fetchBoards() {
+            Trello.get('/members/me/boards', boards => {
+                dispatch(boardsFetched(boards));
+            });
         }
+    }
+}
+
+export function boardsFetched(boards) {
+    return {
+        type: BOARDS_FETCHED,
+        boards
+    }
+}
+
+export function loadBoard(board) {
+    return dispatch => {
+        return Trello.get('/boards/' + board.id + '/cards', fetchLists);
 
         function fetchLists(cards) {
-            Trello.get('/boards/' + id + '/lists', (lists) => {
+            Trello.get('/boards/' + board.id + '/lists', (lists) => {
                 dispatch(boardLoaded(addCardsToLists({lists, cards})));
             });
         }
 
         function addCardsToLists({lists, cards}) {
-            const listsById  = lists.reduce((result, list) => {
+            const listsById = lists.reduce((result, list) => {
                 return {...result, [list.id]: {...list, cards: []}}
             }, {});
 
@@ -60,7 +76,7 @@ export function boardLoaded(lists) {
     }
 }
 
-export function togglePrintView(){
+export function togglePrintView() {
     return {
         type: TOGGLE_PRINT_VIEW
     }

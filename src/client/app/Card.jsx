@@ -15,7 +15,7 @@ class ConnectedCard extends React.Component {
 
     render() {
         const {name, desc} = this.state;
-        return <li className={this.state.isEdited ? 'card edited' : 'card'}>
+        return <li className={this.state.isEdited ? 'card edited' : 'card fade'}>
             {this.props.isPrintView ?
                 <h3 className="name">{name}</h3>
                 : <input className="name" value={name} onChange={this.onChange}/>

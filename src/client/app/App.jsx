@@ -1,7 +1,8 @@
 import React from 'react';
 import {connect} from "react-redux";
 import Board from './Board.jsx';
-import {loadBoard, togglePrintView} from "./redux/actions";
+import Menu from './Menu.jsx';
+import {togglePrintView, authorize} from "./redux/actions";
 
 class ConnectedApp extends React.Component {
     constructor() {
@@ -18,17 +19,16 @@ class ConnectedApp extends React.Component {
 
     render() {
         return <div className={this.props.isPrintView ? "script-hero print" : "script-hero"}>
-            <div className='header'>
+            <div className='header fade'>
                 <div className='board-selection'>
-                    <p>Insert the board's id: trello.com/b/<u><b>ttKuW0v3</b></u>/burn-it</p>
-                    <input placeholder="ttKuW0v3" value={this.state.id} onChange={this.onIdChange}/>
-                    <button onClick={this.onLoadClick}>Load</button>
+                    <button onClick={this.onLoadClick}>Select</button>
                 </div>
                 <div>
                     <button className='print-view'
                             onClick={this.props.togglePrintView}>{this.props.isPrintView ? "edit" : "read"}</button>
                     <button className='print-view' onClick={this.speak}>speak</button>
                 </div>
+                <Menu/>
             </div>
             <Board/>
         </div>
@@ -36,7 +36,7 @@ class ConnectedApp extends React.Component {
     }
 
     onLoadClick(e) {
-        this.props.loadBoard(this.state.id);
+        this.props.authorize();
     }
 
     onIdChange(e) {
@@ -60,7 +60,7 @@ class ConnectedApp extends React.Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        loadBoard: id => dispatch(loadBoard(id)),
+        authorize: () => {dispatch(authorize())},
         togglePrintView: () => {
             dispatch(togglePrintView())
         }

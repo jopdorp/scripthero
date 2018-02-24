@@ -12,7 +12,7 @@ class ConnectedMenu extends React.Component {
             <ul className='boards'>
                 {this.props.boards && this.props.boards.map(board => {
                     const style = board.prefs.backgroundImageScaled ?
-                        {backgroundImage: "url("+board.prefs.backgroundImageScaled[1].url+")"}
+                        {backgroundImage: "url("+board.prefs.backgroundImageScaled[0].url+")"}
                         : {};
                     return <li className='fade' style={style}
                         onClick={_ => {

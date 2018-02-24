@@ -21386,6 +21386,7 @@ var ConnectedApp = function (_React$Component) {
 
         _this.onLoadClick = _this.onLoadClick.bind(_this);
         _this.onIdChange = _this.onIdChange.bind(_this);
+        _this.speak = _this.speak.bind(_this);
         return _this;
     }
 
@@ -21427,9 +21428,16 @@ var ConnectedApp = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'button',
-                    { className: 'print-view', onClick: this.props.togglePrintView },
+                    { className: 'print-view',
+                        onClick: this.props.togglePrintView },
                     this.props.isPrintView ? "edit" : "print view"
                 ),
+                _react2.default.createElement('br', null),
+                this.props.isPrintView ? _react2.default.createElement(
+                    'button',
+                    { className: 'print-view', onClick: this.speak },
+                    'Speak'
+                ) : "",
                 _react2.default.createElement(_Board2.default, null)
             );
         }
@@ -21442,6 +21450,20 @@ var ConnectedApp = function (_React$Component) {
         key: 'onIdChange',
         value: function onIdChange(e) {
             this.setState({ id: e.target.value });
+        }
+    }, {
+        key: 'speak',
+        value: function speak(e) {
+            var fullText = this.props.lists.reduce(function (result, list) {
+                return result + list.cards.map(function (card) {
+                    return card.name + ". " + card.desc + ". ";
+                });
+            }, "");
+
+            var utterence = new SpeechSynthesisUtterance(fullText);
+            utterence.rate = 0.7;
+            utterence.pitch = 1;
+            window.speechSynthesis.speak(utterence);
         }
     }]);
 
@@ -21460,7 +21482,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 var mapStateToProps = function mapStateToProps(state) {
-    return { isPrintView: state.isPrintView };
+    return { isPrintView: state.isPrintView, lists: state.lists };
 };
 
 var AppWithDispatchConnection = (0, _reactRedux.connect)(null, mapDispatchToProps)(ConnectedApp);

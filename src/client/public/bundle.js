@@ -21627,16 +21627,13 @@ var ConnectedCard = function (_React$Component) {
     }, {
         key: "onSaveClick",
         value: function onSaveClick(e) {
-            var _this2 = this;
-
             var _state2 = this.state,
                 name = _state2.name,
                 desc = _state2.desc,
                 id = _state2.id;
 
-            this.props.saveCard({ id: this.state.id, desc: this.state.desc, name: this.state.name }).then(function () {
-                _this2.setState({ isEdited: false });
-            });
+            this.props.saveCard({ id: this.state.id, desc: this.state.desc, name: this.state.name });
+            this.setState({ isEdited: false });
         }
     }]);
 

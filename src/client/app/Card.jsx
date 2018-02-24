@@ -29,9 +29,7 @@ class ConnectedCard extends React.Component {
     onSaveClick(e) {
         const {name, desc, id} = this.state;
         this.props.saveCard({id: this.state.id, desc: this.state.desc, name: this.state.name})
-            .then(() => {
-                this.setState({isEdited: false});
-            })
+        this.setState({isEdited: false});
     }
 }
 

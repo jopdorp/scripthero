@@ -4,11 +4,12 @@
   "description": "Trello plugin to write scripts",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=production webpack-dev-server",
+    "prestart": "acorn build",
+    "start": "webpack-dev-server",
     "prod": "webpack-dev-server",
-    "dev": "NODE_ENV=development yarn run go",
+    "dev": "webpack-dev-server",
     "go": "node ./src/client",
-    "build": "NODE_ENV=production webpack --progress --profile --colors",
+    "build": "webpack --progress --profile --colors",
     "clean": "rm -rf ./clien/public",
     "heroku-prebuild": "npm install --production=false",
     "postinstall": "NODE_ENV=production webpack"

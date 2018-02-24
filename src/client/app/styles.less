@@ -13,10 +13,6 @@
   border-right: dashed #E2E4E6 1px;
 }
 
-.textarea-wide {
-  width: calc(100% - @BUTTON_WIDTH - @MARGIN );
-}
-
 ul, body, ul ul {
   padding: 0;
   margin: 0;
@@ -65,14 +61,19 @@ textarea, input, button {
 
 .menu .boards li {
   cursor: pointer;
-  background-color: #bbb;
+  background-color: #aaa;
   display: inline-block;
-  padding: 11px 20px;
+  padding: 13px 32px;
   color: white;
   border-radius: 10px;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 21px;
   text-transform: uppercase;
+  box-shadow: inset 0 0 2px 1px #333;
+  transition: font-size 0.1s;
+  &:hover {
+    box-shadow: inset 0 0 2px 3px #333;
+  }
 }
 
 .fade {
@@ -85,8 +86,15 @@ textarea, input, button {
    to {opacity: 1}
  }
 
+.app{
+  text-align: center;
+}
+
 .script-hero {
   text-align: center;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .card {
@@ -112,10 +120,10 @@ textarea, input, button {
     font-size: @FONT_SIZE;
     vertical-align: top;
     margin: 0;
-    .textarea-wide;
+    width: 100%;
   }
   input {
-    width: calc(100% - @BUTTON_WIDTH - 21px);
+    width: 100%;
   }
   .name {
     .right-bordered;
@@ -126,23 +134,11 @@ textarea, input, button {
     margin-right: -1 * @MARGIN;
     padding-bottom: @MARGIN;
   }
+  .desc {
+    white-space: pre-line;
+  }
   h3.name{
     margin: @MARGIN 0 0 0;
-  }
-  .desc {
-    .right-bordered;
-    padding-right: @MARGIN;
-  }
-  .title-and-buttons {
-    width: @BUTTON_WIDTH;
-    padding: 0 0 0 10px;
-    margin: -30px 0 0 0;
-    > * {
-      width: 100%;
-      margin: 0 0 @MARGIN 0;
-      padding:0;
-      text-align: center;
-    }
   }
 }
 

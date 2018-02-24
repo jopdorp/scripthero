@@ -2,6 +2,7 @@ import {BOARD_LOADED, BOARDS_FETCHED, TOGGLE_PRINT_VIEW} from "./actions";
 
 const initialState = {
     lists: [],
+    boards: [],
     id: ""
 };
 
@@ -22,5 +23,7 @@ const rootReducer = (state = initialState, action) => {
     }
     return state;
 };
+
+
 
 export default rootReducer;

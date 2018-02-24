@@ -1,3 +1,5 @@
+export const SAVE_ALL = 'SAVE_ALL';
+export const CANCEL_ALL = 'CANCEL_ALL';
 export const SAVE_CARD = 'SAVE_CARD';
 export const BOARDS_FETCHED = 'BOARDS_FETCHED';
 export const BOARD_LOADED = 'BOARD_LOADED';

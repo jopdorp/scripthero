@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import Board from './Board.jsx';
 import Menu from './Menu.jsx';
-import {togglePrintView, authorize} from "./redux/actions";
+import {togglePrintView, authorize, SAVE_ALL, CANCEL_ALL} from "./redux/actions";
 
 class ConnectedApp extends React.Component {
     constructor() {
@@ -22,6 +22,8 @@ class ConnectedApp extends React.Component {
             <div className='header fade'>
                 <div className='board-selection'>
                     <button onClick={this.onLoadClick}>Select</button>
+                    <button className="save button-primary" onClick={this.onSaveClick}>save</button>
+                    <button className="cancel" onClick={this.onCancelClick}>cancel</button>
                 </div>
                 <div>
                     <button className='print-view'
@@ -32,11 +34,18 @@ class ConnectedApp extends React.Component {
             </div>
             <Board/>
         </div>
-        const {id, isPrintView} = this.state;
     }
 
     onLoadClick(e) {
         this.props.authorize();
+    }
+
+    onSaveClick(){
+        window.dispatchEvent(new Event(SAVE_ALL));
+    }
+
+    onCancelClick(){
+        window.dispatchEvent(new Event(CANCEL_ALL));
     }
 
     onIdChange(e) {
@@ -51,7 +60,7 @@ class ConnectedApp extends React.Component {
         }, "");
 
         const utterence = new SpeechSynthesisUtterance(fullText);
-        var voices = window.speechSynthesis.getVoices();
+        const voices = window.speechSynthesis.getVoices();
         utterence.voice = voices[0];
         speechSynthesis.speak(utterence);
     }
@@ -60,7 +69,12 @@ class ConnectedApp extends React.Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        authorize: () => {dispatch(authorize())},
+        saveAll: () => {
+            dispatch(saveAll())
+        },
+        authorize: () => {
+            dispatch(authorize())
+        },
         togglePrintView: () => {
             dispatch(togglePrintView())
         }

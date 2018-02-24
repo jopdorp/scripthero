@@ -603,6 +603,8 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+var SAVE_ALL = exports.SAVE_ALL = 'SAVE_ALL';
+var CANCEL_ALL = exports.CANCEL_ALL = 'CANCEL_ALL';
 var SAVE_CARD = exports.SAVE_CARD = 'SAVE_CARD';
 var BOARDS_FETCHED = exports.BOARDS_FETCHED = 'BOARDS_FETCHED';
 var BOARD_LOADED = exports.BOARD_LOADED = 'BOARD_LOADED';
@@ -21386,6 +21388,7 @@ var _actions = __webpack_require__(8);
 
 var initialState = {
     lists: [],
+    boards: [],
     id: ""
 };
 
@@ -21512,6 +21515,16 @@ var ConnectedApp = function (_React$Component) {
                             'button',
                             { onClick: this.onLoadClick },
                             'Select'
+                        ),
+                        _react2.default.createElement(
+                            'button',
+                            { className: 'save button-primary', onClick: this.onSaveClick },
+                            'save'
+                        ),
+                        _react2.default.createElement(
+                            'button',
+                            { className: 'cancel', onClick: this.onCancelClick },
+                            'cancel'
                         )
                     ),
                     _react2.default.createElement(
@@ -21533,14 +21546,21 @@ var ConnectedApp = function (_React$Component) {
                 ),
                 _react2.default.createElement(_Board2.default, null)
             );
-            var _state = this.state,
-                id = _state.id,
-                isPrintView = _state.isPrintView;
         }
     }, {
         key: 'onLoadClick',
         value: function onLoadClick(e) {
             this.props.authorize();
+        }
+    }, {
+        key: 'onSaveClick',
+        value: function onSaveClick() {
+            window.dispatchEvent(new Event(_actions.SAVE_ALL));
+        }
+    }, {
+        key: 'onCancelClick',
+        value: function onCancelClick() {
+            window.dispatchEvent(new Event(_actions.CANCEL_ALL));
         }
     }, {
         key: 'onIdChange',
@@ -21568,6 +21588,19 @@ var ConnectedApp = function (_React$Component) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
+        saveAll: function (_saveAll) {
+            function saveAll() {
+                return _saveAll.apply(this, arguments);
+            }
+
+            saveAll.toString = function () {
+                return _saveAll.toString();
+            };
+
+            return saveAll;
+        }(function () {
+            dispatch(saveAll());
+        }),
         authorize: function authorize() {
             dispatch((0, _actions.authorize)());
         },
@@ -21599,6 +21632,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
@@ -21611,16 +21646,40 @@ var _List2 = _interopRequireDefault(_List);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var ConnectedBoard = function ConnectedBoard(_ref) {
-    var lists = _ref.lists;
-    return _react2.default.createElement(
-        'ul',
-        { className: 'board' },
-        lists.map(function (list) {
-            return _react2.default.createElement(_List2.default, _extends({ key: list.id }, list));
-        })
-    );
-};
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ConnectedBoard = function (_React$Component) {
+    _inherits(ConnectedBoard, _React$Component);
+
+    function ConnectedBoard() {
+        _classCallCheck(this, ConnectedBoard);
+
+        return _possibleConstructorReturn(this, (ConnectedBoard.__proto__ || Object.getPrototypeOf(ConnectedBoard)).apply(this, arguments));
+    }
+
+    _createClass(ConnectedBoard, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'ul',
+                    { className: 'board' },
+                    this.props.lists.map(function (list) {
+                        return _react2.default.createElement(_List2.default, _extends({ key: list.id }, list));
+                    })
+                )
+            );
+        }
+    }]);
+
+    return ConnectedBoard;
+}(_react2.default.Component);
 
 var mapStateToProps = function mapStateToProps(state) {
     return { lists: state.lists };
@@ -21750,6 +21809,8 @@ var ConnectedCard = function (_React$Component) {
         _this.onChange = _this.onChange.bind(_this);
         _this.state = props;
         _this.originalState = _extends({}, _this.state);
+        window.addEventListener(_actions.SAVE_ALL, _this.onSaveClick);
+        window.addEventListener(_actions.CANCEL_ALL, _this.onCancelClick);
         return _this;
     }
 
@@ -21772,21 +21833,7 @@ var ConnectedCard = function (_React$Component) {
                     "div",
                     { className: "desc" },
                     desc
-                ) : _react2.default.createElement(_reactTextareaAutosize2.default, { className: "desc", value: desc, onChange: this.onChange }),
-                _react2.default.createElement(
-                    "div",
-                    { className: "title-and-buttons" },
-                    _react2.default.createElement(
-                        "button",
-                        { className: "save", onClick: this.onSaveClick },
-                        "save"
-                    ),
-                    _react2.default.createElement(
-                        "button",
-                        { className: "cancel", onClick: this.onCancelClick },
-                        "cancel"
-                    )
-                )
+                ) : _react2.default.createElement(_reactTextareaAutosize2.default, { className: "desc", value: desc, onChange: this.onChange })
             );
         }
     }, {
@@ -21798,13 +21845,13 @@ var ConnectedCard = function (_React$Component) {
         }
     }, {
         key: "onSaveClick",
-        value: function onSaveClick(e) {
+        value: function onSaveClick() {
             var _state2 = this.state,
                 name = _state2.name,
                 desc = _state2.desc,
                 id = _state2.id;
 
-            this.props.saveCard({ id: this.state.id, desc: this.state.desc, name: this.state.name });
+            this.props.saveCard({ id: id, desc: desc, name: name });
             this.setState({ isEdited: false });
             this.originalState = _extends({}, this.state);
         }
@@ -22387,7 +22434,7 @@ exports.i(__webpack_require__(82), "");
 exports.i(__webpack_require__(83), "");
 
 // module
-exports.push([module.i, ".bordered {\n  border: dashed #E2E4E6 1px;\n}\n.right-bordered {\n  border-right: dashed #E2E4E6 1px;\n}\n.textarea-wide {\n  width: calc(100% - 22% - 10px);\n}\nul,\nbody,\nul ul {\n  padding: 0;\n  margin: 0;\n}\nh2 {\n  font-weight: bolder;\n  font-size: 1.5em;\n  text-align: center;\n  page-break-before: always;\n}\nli {\n  list-style: none;\n  margin: 10px;\n  padding: 10px;\n}\ntextarea,\ninput,\nbutton {\n  outline: none;\n}\n.header {\n  text-align: center;\n  font-size: 19px;\n  margin: 20px;\n}\n.header * {\n  vertical-align: top;\n}\n.header button {\n  width: 110px;\n  margin: 10px;\n  height: 38px;\n}\n.header input {\n  height: 34px;\n  padding-left: 10px;\n  width: 98px;\n  margin: 10px;\n  border: 1px solid #bbb;\n  border-radius: 4px;\n}\n.menu .boards li {\n  cursor: pointer;\n  background-color: #bbb;\n  display: inline-block;\n  padding: 11px 20px;\n  color: white;\n  border-radius: 10px;\n  font-weight: bold;\n  font-size: 18px;\n  text-transform: uppercase;\n}\n.fade {\n  animation: fade 0.7s;\n  opacity: 1;\n}\n@keyframes fade {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n.script-hero {\n  text-align: center;\n}\n.card {\n  text-align: left;\n  border: dashed #E2E4E6 1px;\n  width: calc(100% - (4 * 10px));\n}\n.card.edited {\n  border-color: #F77;\n}\n.card > *:not(h3) {\n  display: inline-block;\n}\n.card textarea,\n.card input {\n  background: none;\n  border: none;\n  resize: none;\n  overflow: hidden;\n}\n.card textarea {\n  display: inline-block;\n  height: 70;\n  font-size: 14px;\n  vertical-align: top;\n  margin: 0;\n  width: calc(100% - 22% - 10px);\n}\n.card input {\n  width: calc(100% - 22% - 21px);\n}\n.card .name {\n  border-right: dashed #E2E4E6 1px;\n  display: block;\n  font-size: 1.17em;\n  font-weight: bold;\n  margin: 10px 0 0 10px;\n  margin-right: -10px;\n  padding-bottom: 10px;\n}\n.card h3.name {\n  margin: 10px 0 0 0;\n}\n.card .desc {\n  border-right: dashed #E2E4E6 1px;\n  padding-right: 10px;\n}\n.card .title-and-buttons {\n  width: 22%;\n  padding: 0 0 0 10px;\n  margin: -30px 0 0 0;\n}\n.card .title-and-buttons > * {\n  width: 100%;\n  margin: 0 0 10px 0;\n  padding: 0;\n  text-align: center;\n}\n.print * {\n  border: none;\n  border-right: none!important;\n}\n.print .card .desc {\n  width: 100%;\n}\n.print .title-and-buttons {\n  display: none;\n}\n", ""]);
+exports.push([module.i, ".bordered {\n  border: dashed #E2E4E6 1px;\n}\n.right-bordered {\n  border-right: dashed #E2E4E6 1px;\n}\nul,\nbody,\nul ul {\n  padding: 0;\n  margin: 0;\n}\nh2 {\n  font-weight: bolder;\n  font-size: 1.5em;\n  text-align: center;\n  page-break-before: always;\n}\nli {\n  list-style: none;\n  margin: 10px;\n  padding: 10px;\n}\ntextarea,\ninput,\nbutton {\n  outline: none;\n}\n.header {\n  text-align: center;\n  font-size: 19px;\n  margin: 20px;\n}\n.header * {\n  vertical-align: top;\n}\n.header button {\n  width: 110px;\n  margin: 10px;\n  height: 38px;\n}\n.header input {\n  height: 34px;\n  padding-left: 10px;\n  width: 98px;\n  margin: 10px;\n  border: 1px solid #bbb;\n  border-radius: 4px;\n}\n.menu .boards li {\n  cursor: pointer;\n  background-color: #aaa;\n  display: inline-block;\n  padding: 13px 32px;\n  color: white;\n  border-radius: 10px;\n  font-weight: bold;\n  font-size: 21px;\n  text-transform: uppercase;\n  box-shadow: inset 0 0 2px 1px #333;\n  transition: font-size 0.1s;\n}\n.menu .boards li:hover {\n  box-shadow: inset 0 0 2px 3px #333;\n}\n.fade {\n  animation: fade 0.7s;\n  opacity: 1;\n}\n@keyframes fade {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n.app {\n  text-align: center;\n}\n.script-hero {\n  text-align: center;\n  max-width: 900px;\n  margin-left: auto;\n  margin-right: auto;\n}\n.card {\n  text-align: left;\n  border: dashed #E2E4E6 1px;\n  width: calc(100% - (4 * 10px));\n}\n.card.edited {\n  border-color: #F77;\n}\n.card > *:not(h3) {\n  display: inline-block;\n}\n.card textarea,\n.card input {\n  background: none;\n  border: none;\n  resize: none;\n  overflow: hidden;\n}\n.card textarea {\n  display: inline-block;\n  height: 70;\n  font-size: 14px;\n  vertical-align: top;\n  margin: 0;\n  width: 100%;\n}\n.card input {\n  width: 100%;\n}\n.card .name {\n  border-right: dashed #E2E4E6 1px;\n  display: block;\n  font-size: 1.17em;\n  font-weight: bold;\n  margin: 10px 0 0 10px;\n  margin-right: -10px;\n  padding-bottom: 10px;\n}\n.card .desc {\n  white-space: pre-line;\n}\n.card h3.name {\n  margin: 10px 0 0 0;\n}\n.print * {\n  border: none;\n  border-right: none!important;\n}\n.print .card .desc {\n  width: 100%;\n}\n.print .title-and-buttons {\n  display: none;\n}\n", ""]);
 
 // exports
 

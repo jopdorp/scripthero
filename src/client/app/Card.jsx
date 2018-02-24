@@ -1,7 +1,7 @@
 import React from 'react';
 import Textarea from "react-textarea-autosize";
-import { connect } from "react-redux";
-import {saveCard } from "./redux/actions";
+import {connect} from "react-redux";
+import {saveCard} from "./redux/actions";
 
 class ConnectedCard extends React.Component {
     constructor(props) {
@@ -13,7 +13,7 @@ class ConnectedCard extends React.Component {
 
     render() {
         const {name, desc} = this.state;
-        return <li className="card">
+        return <li className={this.state.isEdited ? 'card edited' : 'card'}>
             <input className="name" value={name} onChange={this.onChange}/>
             <Textarea className="desc" value={desc} onChange={this.onChange}></Textarea>
             <div className="title-and-buttons">
@@ -22,13 +22,16 @@ class ConnectedCard extends React.Component {
         </li>
     }
 
-    onChange(e){
-        this.setState({[e.target.className] : e.target.value});
+    onChange(e) {
+        this.setState({[e.target.className]: e.target.value, isEdited: true});
     }
 
-    onSaveClick (e) {
+    onSaveClick(e) {
         const {name, desc, id} = this.state;
-        this.props.saveCard({id: this.state.id, desc:this.state.desc, name:this.state.name});
+        this.props.saveCard({id: this.state.id, desc: this.state.desc, name: this.state.name})
+            .then(() => {
+                this.setState({isEdited: false});
+            })
     }
 }
 

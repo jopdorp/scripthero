@@ -21603,7 +21603,7 @@ var ConnectedCard = function (_React$Component) {
 
             return _react2.default.createElement(
                 "li",
-                { className: "card" },
+                { className: this.state.isEdited ? 'card edited' : 'card' },
                 _react2.default.createElement("input", { className: "name", value: name, onChange: this.onChange }),
                 _react2.default.createElement(_reactTextareaAutosize2.default, { className: "desc", value: desc, onChange: this.onChange }),
                 _react2.default.createElement(
@@ -21620,17 +21620,23 @@ var ConnectedCard = function (_React$Component) {
     }, {
         key: "onChange",
         value: function onChange(e) {
-            this.setState(_defineProperty({}, e.target.className, e.target.value));
+            var _setState;
+
+            this.setState((_setState = {}, _defineProperty(_setState, e.target.className, e.target.value), _defineProperty(_setState, "isEdited", true), _setState));
         }
     }, {
         key: "onSaveClick",
         value: function onSaveClick(e) {
+            var _this2 = this;
+
             var _state2 = this.state,
                 name = _state2.name,
                 desc = _state2.desc,
                 id = _state2.id;
 
-            this.props.saveCard({ id: this.state.id, desc: this.state.desc, name: this.state.name });
+            this.props.saveCard({ id: this.state.id, desc: this.state.desc, name: this.state.name }).then(function () {
+                _this2.setState({ isEdited: false });
+            });
         }
     }]);
 
@@ -22113,7 +22119,7 @@ exports = module.exports = __webpack_require__(80)(false);
 
 
 // module
-exports.push([module.i, ".bordered {\n  border: dashed #E2E4E6 1px;\n}\n.right-bordered {\n  border-right: dashed #E2E4E6 1px;\n}\n.textarea-wide {\n  width: calc(100% - 15% - 2 * 10px - 3px);\n}\nul,\nbody {\n  padding: 0;\n  margin: 0;\n}\nh2 {\n  font-weight: bolder;\n  font-size: 1.8em;\n  text-align: center;\n  page-break-before: always;\n}\nli {\n  list-style: none;\n  margin: 10px;\n  padding: 10px;\n}\ntextarea,\ninput,\nbutton {\n  outline: none;\n}\n.board-selection {\n  text-align: center;\n  font-size: 24px;\n  margin: 40px;\n}\n.script-hero {\n  text-align: center;\n}\n.card {\n  border: dashed #E2E4E6 1px;\n  width: calc(100% - (4 * 10px));\n}\n.card > *:not(h3) {\n  display: inline-block;\n}\n.card textarea,\n.card input {\n  background: none;\n  border: none;\n  resize: none;\n  width: calc(100% - 15% - 2 * 10px - 3px);\n  overflow: hidden;\n}\n.card textarea {\n  display: inline-block;\n  height: 70;\n  font-size: 14px;\n  vertical-align: top;\n  margin: 0;\n}\n.card .name {\n  border-right: dashed #E2E4E6 1px;\n  display: block;\n  font-size: 1.17em;\n  font-weight: bold;\n  padding-bottom: 10px;\n  padding-right: 12px;\n}\n.card .desc {\n  border-right: dashed #E2E4E6 1px;\n  padding-right: 10px;\n}\n.card .title-and-buttons {\n  width: 15%;\n  padding: 0 0 0 10px;\n  margin: 0;\n}\n.card .title-and-buttons > * {\n  width: 100%;\n  margin: 0 0 10px 0;\n  font-size: 18px;\n}\n.card .title-and-buttons .save {\n  margin: 0;\n  display: block;\n}\n.print * {\n  border: none;\n  border-right: none!important;\n}\n.print .card .desc {\n  width: 100%;\n}\n.print .title-and-buttons,\n.print .board-selection {\n  display: none;\n}\n", ""]);
+exports.push([module.i, ".bordered {\n  border: dashed #E2E4E6 1px;\n}\n.right-bordered {\n  border-right: dashed #E2E4E6 1px;\n}\n.textarea-wide {\n  width: calc(100% - 15% - 2 * 10px - 3px);\n}\nul,\nbody {\n  padding: 0;\n  margin: 0;\n}\nh2 {\n  font-weight: bolder;\n  font-size: 1.5em;\n  text-align: center;\n  page-break-before: always;\n}\nli {\n  list-style: none;\n  margin: 10px;\n  padding: 10px;\n}\ntextarea,\ninput,\nbutton {\n  outline: none;\n}\n.board-selection {\n  text-align: center;\n  font-size: 24px;\n  margin: 40px;\n}\n.script-hero {\n  text-align: center;\n}\n.card {\n  border: dashed #E2E4E6 1px;\n  width: calc(100% - (4 * 10px));\n}\n.card.edited {\n  boder: red;\n}\n.card > *:not(h3) {\n  display: inline-block;\n}\n.card textarea,\n.card input {\n  background: none;\n  border: none;\n  resize: none;\n  width: calc(100% - 15% - 2 * 10px - 3px);\n  overflow: hidden;\n}\n.card textarea {\n  display: inline-block;\n  height: 70;\n  font-size: 14px;\n  vertical-align: top;\n  margin: 0;\n}\n.card .name {\n  border-right: dashed #E2E4E6 1px;\n  display: block;\n  font-size: 1.17em!important;\n  font-weight: bold;\n  padding-bottom: 10px;\n  padding-right: 12px;\n}\n.card .desc {\n  border-right: dashed #E2E4E6 1px;\n  padding-right: 10px;\n}\n.card .title-and-buttons {\n  width: 15%;\n  padding: 0 0 0 10px;\n  margin: 0;\n}\n.card .title-and-buttons > * {\n  width: 100%;\n  margin: 0 0 10px 0;\n  font-size: 18px;\n}\n.card .title-and-buttons .save {\n  margin: 0;\n  display: block;\n}\n.print * {\n  border: none;\n  border-right: none!important;\n}\n.print .card .desc {\n  width: 100%;\n}\n.print .title-and-buttons,\n.print .board-selection {\n  display: none;\n}\n", ""]);
 
 // exports
 

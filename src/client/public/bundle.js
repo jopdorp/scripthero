@@ -593,6 +593,9 @@ Object.defineProperty(exports, "__esModule", {
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 exports.saveCard = saveCard;
+exports.saveAll = saveAll;
+exports.cancelAll = cancelAll;
+exports.cardEdited = cardEdited;
 exports.authorize = authorize;
 exports.boardsFetched = boardsFetched;
 exports.loadBoard = loadBoard;
@@ -609,6 +612,7 @@ var SAVE_CARD = exports.SAVE_CARD = 'SAVE_CARD';
 var BOARDS_FETCHED = exports.BOARDS_FETCHED = 'BOARDS_FETCHED';
 var BOARD_LOADED = exports.BOARD_LOADED = 'BOARD_LOADED';
 var TOGGLE_PRINT_VIEW = exports.TOGGLE_PRINT_VIEW = 'TOGGLE_PRINT_VIEW';
+var CARD_EDITED = exports.CARD_EDITED = 'CARD_EDITED';
 
 function saveCard(card) {
     Trello.put("/cards/" + card.id, card);
@@ -618,11 +622,29 @@ function saveCard(card) {
     };
 }
 
+function saveAll() {
+    return {
+        type: SAVE_ALL
+    };
+}
+
+function cancelAll() {
+    return {
+        type: CANCEL_ALL
+    };
+}
+
+function cardEdited() {
+    return {
+        type: CARD_EDITED
+    };
+}
+
 function authorize() {
     return function (dispatch) {
         Trello.authorize({
             type: 'popup',
-            name: 'Getting Started Application',
+            name: 'Script Hero',
             scope: {
                 read: 'true',
                 write: 'true'
@@ -21409,6 +21431,11 @@ var rootReducer = function rootReducer() {
             return _extends({}, state, { isPrintView: !state.isPrintView });
         case _actions.BOARDS_FETCHED:
             return _extends({}, state, { boards: action.boards });
+        case _actions.CARD_EDITED:
+            return _extends({}, state, { hasChanges: true });
+        case _actions.SAVE_ALL:
+        case _actions.CANCEL_ALL:
+            return _extends({}, state, { hasChanges: false });
     }
     return state;
 };
@@ -21494,6 +21521,8 @@ var ConnectedApp = function (_React$Component) {
         };
 
         _this.onLoadClick = _this.onLoadClick.bind(_this);
+        _this.onSaveClick = _this.onSaveClick.bind(_this);
+        _this.onCancelClick = _this.onCancelClick.bind(_this);
         _this.onIdChange = _this.onIdChange.bind(_this);
         _this.speak = _this.speak.bind(_this);
         return _this;
@@ -21518,7 +21547,8 @@ var ConnectedApp = function (_React$Component) {
                         ),
                         _react2.default.createElement(
                             'button',
-                            { className: 'save button-primary', onClick: this.onSaveClick },
+                            { className: this.props.hasChanges ? "save button-primary" : "save",
+                                onClick: this.onSaveClick },
                             'save'
                         ),
                         _react2.default.createElement(
@@ -21556,11 +21586,13 @@ var ConnectedApp = function (_React$Component) {
         key: 'onSaveClick',
         value: function onSaveClick() {
             window.dispatchEvent(new Event(_actions.SAVE_ALL));
+            this.props.saveAll();
         }
     }, {
         key: 'onCancelClick',
         value: function onCancelClick() {
             window.dispatchEvent(new Event(_actions.CANCEL_ALL));
+            this.props.cancelAll();
         }
     }, {
         key: 'onIdChange',
@@ -21588,19 +21620,12 @@ var ConnectedApp = function (_React$Component) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
-        saveAll: function (_saveAll) {
-            function saveAll() {
-                return _saveAll.apply(this, arguments);
-            }
-
-            saveAll.toString = function () {
-                return _saveAll.toString();
-            };
-
-            return saveAll;
-        }(function () {
-            dispatch(saveAll());
-        }),
+        saveAll: function saveAll() {
+            dispatch((0, _actions.saveAll)());
+        },
+        cancelAll: function cancelAll() {
+            dispatch((0, _actions.cancelAll)());
+        },
         authorize: function authorize() {
             dispatch((0, _actions.authorize)());
         },
@@ -21611,7 +21636,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 var mapStateToProps = function mapStateToProps(state) {
-    return { isPrintView: state.isPrintView, lists: state.lists };
+    return { isPrintView: state.isPrintView, lists: state.lists, hasChanges: state.hasChanges };
 };
 
 var AppWithDispatchConnection = (0, _reactRedux.connect)(null, mapDispatchToProps)(ConnectedApp);
@@ -21842,6 +21867,7 @@ var ConnectedCard = function (_React$Component) {
             var _setState;
 
             this.setState((_setState = {}, _defineProperty(_setState, e.target.className, e.target.value), _defineProperty(_setState, "isEdited", true), _setState));
+            this.props.cardEdited();
         }
     }, {
         key: "onSaveClick",
@@ -21870,6 +21896,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         saveCard: function saveCard(card) {
             return dispatch((0, _actions.saveCard)(card));
+        },
+        cardEdited: function cardEdited() {
+            dispatch((0, _actions.cardEdited)());
         }
     };
 };

@@ -1,4 +1,4 @@
-import {BOARD_LOADED, BOARDS_FETCHED, TOGGLE_PRINT_VIEW} from "./actions";
+import {BOARD_LOADED, BOARDS_FETCHED, TOGGLE_PRINT_VIEW, CARD_EDITED, SAVE_ALL, CANCEL_ALL} from "./actions";
 
 const initialState = {
     lists: [],
@@ -20,6 +20,11 @@ const rootReducer = (state = initialState, action) => {
             return {...state, isPrintView: !state.isPrintView};
         case BOARDS_FETCHED:
             return {...state, boards: action.boards};
+        case CARD_EDITED:
+            return {...state, hasChanges: true};
+        case SAVE_ALL:
+        case CANCEL_ALL:
+            return {...state, hasChanges: false};
     }
     return state;
 };

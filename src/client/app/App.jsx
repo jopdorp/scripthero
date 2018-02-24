@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import Board from './Board.jsx';
 import Menu from './Menu.jsx';
-import {togglePrintView, authorize, SAVE_ALL, CANCEL_ALL} from "./redux/actions";
+import {togglePrintView, saveAll, cancelAll, authorize, SAVE_ALL, CANCEL_ALL} from "./redux/actions";
 
 class ConnectedApp extends React.Component {
     constructor() {
@@ -13,6 +13,8 @@ class ConnectedApp extends React.Component {
         };
 
         this.onLoadClick = this.onLoadClick.bind(this);
+        this.onSaveClick = this.onSaveClick.bind(this);
+        this.onCancelClick = this.onCancelClick.bind(this);
         this.onIdChange = this.onIdChange.bind(this);
         this.speak = this.speak.bind(this);
     }
@@ -22,7 +24,8 @@ class ConnectedApp extends React.Component {
             <div className='header fade'>
                 <div className='board-selection'>
                     <button onClick={this.onLoadClick}>Select</button>
-                    <button className="save button-primary" onClick={this.onSaveClick}>save</button>
+                    <button className={ this.props.hasChanges ? "save button-primary" : "save"}
+                                onClick={this.onSaveClick}>save</button>
                     <button className="cancel" onClick={this.onCancelClick}>cancel</button>
                 </div>
                 <div>
@@ -42,10 +45,12 @@ class ConnectedApp extends React.Component {
 
     onSaveClick(){
         window.dispatchEvent(new Event(SAVE_ALL));
+        this.props.saveAll();
     }
 
     onCancelClick(){
         window.dispatchEvent(new Event(CANCEL_ALL));
+        this.props.cancelAll();
     }
 
     onIdChange(e) {
@@ -72,6 +77,9 @@ const mapDispatchToProps = dispatch => {
         saveAll: () => {
             dispatch(saveAll())
         },
+        cancelAll: () => {
+            dispatch(cancelAll())
+        },
         authorize: () => {
             dispatch(authorize())
         },
@@ -82,7 +90,7 @@ const mapDispatchToProps = dispatch => {
 };
 
 const mapStateToProps = state => {
-    return {isPrintView: state.isPrintView, lists: state.lists};
+    return {isPrintView: state.isPrintView, lists: state.lists, hasChanges: state.hasChanges};
 };
 
 const AppWithDispatchConnection = connect(null, mapDispatchToProps)(ConnectedApp);

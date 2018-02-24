@@ -4,6 +4,7 @@ export const SAVE_CARD = 'SAVE_CARD';
 export const BOARDS_FETCHED = 'BOARDS_FETCHED';
 export const BOARD_LOADED = 'BOARD_LOADED';
 export const TOGGLE_PRINT_VIEW = 'TOGGLE_PRINT_VIEW';
+export const CARD_EDITED = 'CARD_EDITED';
 
 export function saveCard(card) {
     Trello.put("/cards/" + card.id, card);
@@ -13,11 +14,29 @@ export function saveCard(card) {
     };
 }
 
+export function saveAll(){
+    return {
+        type: SAVE_ALL,
+    };
+}
+
+export function cancelAll(){
+    return {
+        type: CANCEL_ALL,
+    };
+}
+
+export function cardEdited(){
+    return {
+        type: CARD_EDITED,
+    };
+}
+
 export function authorize() {
     return dispatch => {
         Trello.authorize({
             type: 'popup',
-            name: 'Getting Started Application',
+            name: 'Script Hero',
             scope: {
                 read: 'true',
                 write: 'true'

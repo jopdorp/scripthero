@@ -1,7 +1,7 @@
 import React from 'react';
 import Textarea from "react-textarea-autosize";
 import {connect} from "react-redux";
-import {saveCard, SAVE_ALL, CANCEL_ALL} from "./redux/actions";
+import {saveCard, cardEdited, SAVE_ALL, CANCEL_ALL} from "./redux/actions";
 
 class ConnectedCard extends React.Component {
     constructor(props) {
@@ -31,6 +31,7 @@ class ConnectedCard extends React.Component {
 
     onChange(e) {
         this.setState({[e.target.className]: e.target.value, isEdited: true});
+        this.props.cardEdited();
     }
 
     onSaveClick() {
@@ -48,7 +49,8 @@ class ConnectedCard extends React.Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        saveCard: card => dispatch(saveCard(card))
+        saveCard: card => dispatch(saveCard(card)),
+        cardEdited:  () => {dispatch(cardEdited())}
     };
 };
 

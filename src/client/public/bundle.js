@@ -21433,11 +21433,12 @@ var ConnectedApp = function (_React$Component) {
                     this.props.isPrintView ? "edit" : "print view"
                 ),
                 _react2.default.createElement('br', null),
-                this.props.isPrintView ? _react2.default.createElement(
+                _react2.default.createElement('br', null),
+                _react2.default.createElement(
                     'button',
                     { className: 'print-view', onClick: this.speak },
                     'speak'
-                ) : "",
+                ),
                 _react2.default.createElement(_Board2.default, null)
             );
         }

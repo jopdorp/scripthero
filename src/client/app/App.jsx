@@ -25,10 +25,9 @@ class ConnectedApp extends React.Component {
                 <button onClick={this.onLoadClick}>Load</button>
             </div>
             <button className='print-view'
-                    onClick={this.props.togglePrintView}>{this.props.isPrintView ? "edit" : "print view"}</button><br/>
-            {this.props.isPrintView ?
-                <button className='print-view' onClick={this.speak}>speak</button>
-                : ""}
+                    onClick={this.props.togglePrintView}>{this.props.isPrintView ? "edit" : "print view"}</button>
+            <br/><br/>
+            <button className='print-view' onClick={this.speak}>speak</button>
             <Board/>
         </div>
     }
@@ -44,7 +43,7 @@ class ConnectedApp extends React.Component {
     speak(e) {
         const fullText = this.props.lists.reduce((result, list) => {
             return result + list.cards.map(card => {
-                return card.desc +". "
+                return card.desc + ". "
             })
         }, "");
 

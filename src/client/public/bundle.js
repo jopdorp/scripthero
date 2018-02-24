@@ -21487,18 +21487,17 @@ var ConnectedApp = function (_React$Component) {
                         _react2.default.createElement(
                             'p',
                             null,
-                            'Insert the second part of the board\'s url: ',
+                            'Insert the board\'s id: trello.com/b/',
                             _react2.default.createElement(
                                 'u',
                                 null,
-                                'trello.com/b/',
                                 _react2.default.createElement(
                                     'b',
                                     null,
                                     'ttKuW0v3'
-                                ),
-                                '/burn-it'
-                            )
+                                )
+                            ),
+                            '/burn-it'
                         ),
                         _react2.default.createElement('input', { placeholder: 'ttKuW0v3', value: this.state.id, onChange: this.onIdChange }),
                         _react2.default.createElement(

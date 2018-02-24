@@ -20,7 +20,7 @@ class ConnectedApp extends React.Component {
         return <div className={this.props.isPrintView ? "script-hero print" : "script-hero"}>
             <div className='header'>
                 <div className='board-selection'>
-                    <p>Insert the second part of the board's url: <u>trello.com/b/<b>ttKuW0v3</b>/burn-it</u></p>
+                    <p>Insert the board's id: trello.com/b/<u><b>ttKuW0v3</b></u>/burn-it</p>
                     <input placeholder="ttKuW0v3" value={this.state.id} onChange={this.onIdChange}/>
                     <button onClick={this.onLoadClick}>Load</button>
                 </div>

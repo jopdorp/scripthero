@@ -19,10 +19,7 @@ class ConnectedApp extends React.Component {
         const {id, isPrintView} = this.state;
         return <div className={this.props.isPrintView ? "script-hero print" : "script-hero"}>
             <div className='board-selection'>
-                <a href='ScriptHero-win.exe'>Download for windows</a><br/>
-                <a href='ScriptHero-macos'>Download for mac</a>
-                <a href='ScriptHero-linux'>Download for linux</a>
-                <p>The board id is the second part of the board's url like: https://trello.com/b/ttKuW0v3/burn-it</p>
+                <p>Insert the second part of the board's url: <u>trello.com/b/<b>ttKuW0v3</b>/burn-it</u></p>
                 <input placeholder="ttKuW0v3" value={id} onChange={this.onIdChange}/>
                 <button onClick={this.onLoadClick}>Load</button>
             </div>

@@ -44,7 +44,7 @@ class ConnectedApp extends React.Component {
     speak(e) {
         const fullText = this.props.lists.reduce((result, list) => {
             return result + list.cards.map(card => {
-                return card.name + ". " + card.desc +". "
+                return card.desc +". "
             })
         }, "");
 

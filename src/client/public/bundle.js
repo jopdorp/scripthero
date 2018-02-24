@@ -21456,7 +21456,7 @@ var ConnectedApp = function (_React$Component) {
         value: function speak(e) {
             var fullText = this.props.lists.reduce(function (result, list) {
                 return result + list.cards.map(function (card) {
-                    return card.name + ". " + card.desc + ". ";
+                    return card.desc + ". ";
                 });
             }, "");
 

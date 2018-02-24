@@ -17,7 +17,7 @@ const config = {
                 use: 'babel-loader'
             },
             {
-                test: /\.less$/,
+                test: /\.(less|css)$/,
                 include: APP_DIR,
                 use: [{
                     loader: "style-loader" // creates style nodes from JS strings

@@ -17,19 +17,22 @@ class ConnectedApp extends React.Component {
     }
 
     render() {
-        const {id, isPrintView} = this.state;
         return <div className={this.props.isPrintView ? "script-hero print" : "script-hero"}>
-            <div className='board-selection'>
-                <p>Insert the second part of the board's url: <u>trello.com/b/<b>ttKuW0v3</b>/burn-it</u></p>
-                <input placeholder="ttKuW0v3" value={id} onChange={this.onIdChange}/>
-                <button onClick={this.onLoadClick}>Load</button>
+            <div className='header'>
+                <div className='board-selection'>
+                    <p>Insert the second part of the board's url: <u>trello.com/b/<b>ttKuW0v3</b>/burn-it</u></p>
+                    <input placeholder="ttKuW0v3" value={this.state.id} onChange={this.onIdChange}/>
+                    <button onClick={this.onLoadClick}>Load</button>
+                </div>
+                <div>
+                    <button className='print-view'
+                            onClick={this.props.togglePrintView}>{this.props.isPrintView ? "edit" : "print view"}</button>
+                    <button className='print-view' onClick={this.speak}>speak</button>
+                </div>
             </div>
-            <button className='print-view'
-                    onClick={this.props.togglePrintView}>{this.props.isPrintView ? "edit" : "print view"}</button>
-            <br/><br/>
-            <button className='print-view' onClick={this.speak}>speak</button>
             <Board/>
         </div>
+        const {id, isPrintView} = this.state;
     }
 
     onLoadClick(e) {

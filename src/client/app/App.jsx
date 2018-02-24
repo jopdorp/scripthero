@@ -26,7 +26,7 @@ class ConnectedApp extends React.Component {
                 </div>
                 <div>
                     <button className='print-view'
-                            onClick={this.props.togglePrintView}>{this.props.isPrintView ? "edit" : "print view"}</button>
+                            onClick={this.props.togglePrintView}>{this.props.isPrintView ? "edit" : "read"}</button>
                     <button className='print-view' onClick={this.speak}>speak</button>
                 </div>
             </div>

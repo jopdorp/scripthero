@@ -39,22 +39,25 @@ textarea, input, button {
   outline: none;
 }
 
+@HEADER_BUTTON_WIDTH: 110px;
+@HEADER_BUTTON_HEIGHT: 38px;
 .header {
   text-align: center;
-  font-size: 24px;
+  font-size: 21px;
   margin: 2*@MARGIN;
   * {
     vertical-align: top;
   }
-  input, button {
-    width: 130px;
+  button {
+    width: @HEADER_BUTTON_WIDTH;
     margin: @MARGIN;
     height: 38px;
   }
   input {
-    height: 34px;
+    height: @HEADER_BUTTON_HEIGHT - 4;
     padding-left: 10px;
-    width: 118px;
+    width: @HEADER_BUTTON_WIDTH - 12;
+    margin: @MARGIN;
     border: 1px solid #bbb;
     border-radius: 4px;
   }

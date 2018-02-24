@@ -21403,6 +21403,17 @@ var ConnectedApp = function (_React$Component) {
                     'div',
                     { className: 'board-selection' },
                     _react2.default.createElement(
+                        'a',
+                        { href: 'ScriptHero-win.exe' },
+                        'Download for windows'
+                    ),
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement(
+                        'a',
+                        { href: 'ScriptHero-macos' },
+                        'Download for mac'
+                    ),
+                    _react2.default.createElement(
                         'p',
                         null,
                         'The board id is the second part of the board\'s url like: https://trello.com/b/ttKuW0v3/burn-it'

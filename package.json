@@ -2,7 +2,19 @@
   "name": "ScriptHero",
   "version": "1.0.0",
   "description": "Trello plugin to write scripts",
-  "main": "index.js",
+  "main": "app.js",
+  "bin": "app.js",
+  "pkg": {
+    "assets": [
+      "src/client/public/*",
+      "src/client/index.html"
+    ],
+    "targets": [
+      "node9-linux",
+      "node9-macos",
+      "node9-win-x64"
+    ]
+  },
   "scripts": {
     "start": "node app",
     "watch": "webpack --watch & webpack-dev-server",

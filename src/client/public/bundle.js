@@ -21436,7 +21436,7 @@ var ConnectedApp = function (_React$Component) {
                 this.props.isPrintView ? _react2.default.createElement(
                     'button',
                     { className: 'print-view', onClick: this.speak },
-                    'Speak'
+                    'speak'
                 ) : "",
                 _react2.default.createElement(_Board2.default, null)
             );
@@ -21461,9 +21461,9 @@ var ConnectedApp = function (_React$Component) {
             }, "");
 
             var utterence = new SpeechSynthesisUtterance(fullText);
-            utterence.rate = 0.7;
-            utterence.pitch = 1;
-            window.speechSynthesis.speak(utterence);
+            var voices = window.speechSynthesis.getVoices();
+            utterence.voice = voices[0];
+            speechSynthesis.speak(utterence);
         }
     }]);
 

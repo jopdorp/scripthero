@@ -27,7 +27,7 @@ class ConnectedApp extends React.Component {
             <button className='print-view'
                     onClick={this.props.togglePrintView}>{this.props.isPrintView ? "edit" : "print view"}</button><br/>
             {this.props.isPrintView ?
-                <button className='print-view' onClick={this.speak}>Speak</button>
+                <button className='print-view' onClick={this.speak}>speak</button>
                 : ""}
             <Board/>
         </div>
@@ -49,9 +49,9 @@ class ConnectedApp extends React.Component {
         }, "");
 
         const utterence = new SpeechSynthesisUtterance(fullText);
-        utterence.rate = 0.7;
-        utterence.pitch = 1;
-        window.speechSynthesis.speak(utterence);
+        var voices = window.speechSynthesis.getVoices();
+        utterence.voice = voices[0];
+        speechSynthesis.speak(utterence);
     }
 }
 

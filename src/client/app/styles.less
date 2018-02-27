@@ -10,10 +10,6 @@ body {
   color: #000316;
 }
 
-.bordered {
-  border: dashed white 1px;
-}
-
 ul, body, ul ul {
   padding: 0;
   margin: 0;
@@ -39,15 +35,15 @@ textarea, input, button {
 button {
   background-color: #A2AEA4;
   border: none;
-  color:white;
-  &:hover,:focus {
-    color:white;
+  color: white;
+  &:hover, :focus {
+    color: white;
     background-color: #5F7270;
   }
-  &.button-primary{
+  &.button-primary {
     background-color: #618778;
     border: none;
-    &:hover,:focus{
+    &:hover, :focus {
       color: white;
       border: none;
       background-color: #5F7270;
@@ -60,19 +56,25 @@ button {
 .header {
   text-align: center;
   font-size: 19px;
-  margin: 2*@MARGIN;
+  position: fixed;
+  background: white;
+  margin: 0;
+  bottom: 60px;
+  left: 0;
+  width: 100%;
+  z-index: 10;
   * {
     vertical-align: top;
   }
   button {
-    width: 110px;
-    margin: 10px;
-    height: 38px;
-    font-size: 14px;
-    padding: 0 24px;
+    width: 42px;
+    margin: 10px 4px;
+    height: 60px;
+    font-size: 10px;
+    padding: 0;
     text-align: center;
     &:focus {
-      color:white;
+      color: white;
     }
   }
   input {
@@ -83,22 +85,49 @@ button {
     border: 1px solid #bbb;
     border-radius: 4px;
   }
+  .select-save-cancel, .read-speak {
+    bottom: 0px;
+    margin-bottom: -66px;
+    > * {
+      display: block;
+    }
+  }
+
+  .select-save-cancel {
+    position: absolute;
+    left: 0;
+  }
+  .read-speak {
+    position: absolute;
+    right: 0;
+  }
+  .exit-read-button {
+    position: absolute;
+    left: 0;
+    bottom: -66px;
+    width: 32px;
+  }
 }
 
-.menu .boards li {
-  cursor: pointer;
-  background-color: #1E2B3E;
-  display: inline-block;
-  padding: 13px 32px;
-  color: white;
-  border-radius: 10px;
-  font-weight: bold;
-  font-size: 21px;
-  text-transform: uppercase;
-  transition: font-size 0.1s;
-  &:hover {
-    background-color: #000316;
-    background-image: none!important;
+.menu {
+  margin: 0 37px;
+  .boards li {
+    width: 80%;
+    cursor: pointer;
+    background-color: #1E2B3E;
+    display: inline-block;
+    padding: 7px 13px;
+    color: white;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+    transition: font-size 0.1s;
+    background-size: cover;
+    &:hover {
+      background-color: #000316;
+      background-image: none !important;
+    }
   }
 }
 
@@ -108,11 +137,15 @@ button {
 }
 
 @keyframes fade {
-   from {opacity: 0}
-   to {opacity: 1}
- }
+  from {
+    opacity: 0
+  }
+  to {
+    opacity: 1
+  }
+}
 
-.app{
+.app {
   text-align: center;
 }
 
@@ -125,11 +158,11 @@ button {
 
 .card {
   text-align: left;
+  border: 1px dashed white;
   &.edited {
     border-color: #618778;
   }
 
-  .bordered;
   width: calc(100% - (4 * @MARGIN));
   > *:not(h3) {
     display: inline-block;
@@ -151,26 +184,35 @@ button {
   input {
     width: 100%;
   }
-  .name {
-    display: block;
-    font-size: 1.17em;
-    font-weight: bold;
-    margin: @MARGIN 0 0 @MARGIN;
-    margin-right: -1 * @MARGIN;
-    padding-bottom: @MARGIN;
+  .paragraphHeader {
+    > * {
+      display: inline-block;
+    }
+    a {
+      margin: @MARGIN;
+    }
+    .name {
+      display: block;
+      font-size: 1.17em;
+      font-weight: bold;
+      margin: @MARGIN 0 0 @MARGIN;
+      margin-right: -1 * @MARGIN;
+      padding-bottom: @MARGIN;
+    }
   }
   .desc {
     white-space: pre-line;
   }
-  h3.name{
+  h3.name {
     margin: @MARGIN 0 0 0;
+    font-size: 2rem;
   }
 }
 
 .print {
   * {
     border: none;
-    border-right: none!important;
+    border-right: none !important;
   }
 
   .card {
@@ -179,6 +221,12 @@ button {
     }
   }
   .title-and-buttons {
+    display: none;
+  }
+}
+
+@media print {
+  button {
     display: none;
   }
 }

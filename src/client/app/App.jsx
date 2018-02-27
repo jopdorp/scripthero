@@ -22,18 +22,26 @@ class ConnectedApp extends React.Component {
     render() {
         return <div className={this.props.isPrintView ? "script-hero print" : "script-hero"}>
             <div className='header fade'>
-                <div className='board-selection'>
-                    <button onClick={this.onLoadClick}>Select</button>
-                    <button className={ this.props.hasChanges ? "save button-primary" : "save"}
-                                onClick={this.onSaveClick}>save</button>
-                    <button className="cancel" onClick={this.onCancelClick}>cancel</button>
-                </div>
-                <div>
-                    <button className='print-view'
-                            onClick={this.props.togglePrintView}>{this.props.isPrintView ? "edit" : "read"}</button>
-                    <button className='print-view' onClick={this.speak}>speak</button>
-                </div>
                 <Menu/>
+                {this.props.isPrintView ?
+                    <button className='exit-read-button' onClick={this.props.togglePrintView}>X</button>
+                    :
+                    <div>
+                        <div className='select-save-cancel'>
+                            <button onClick={this.onLoadClick}>sel</button>
+                            <button className={this.props.hasChanges ? "save button-primary" : "save"}
+                                    onClick={this.onSaveClick}>save
+                            </button>
+                            <button className="cancel" onClick={this.onCancelClick}>canc</button>
+                        </div>
+                        <div className="read-speak">
+                            <button className='print-view'
+                                    onClick={this.props.togglePrintView}>{this.props.isPrintView ? "edit" : "read"}</button>
+                            <button className='print-view' onClick={this.speak}>spk</button>
+                        </div>
+                    </div>
+                }
+
             </div>
             <Board/>
         </div>
@@ -43,12 +51,12 @@ class ConnectedApp extends React.Component {
         this.props.authorize();
     }
 
-    onSaveClick(){
+    onSaveClick() {
         window.dispatchEvent(new Event(SAVE_ALL));
         this.props.saveAll();
     }
 
-    onCancelClick(){
+    onCancelClick() {
         window.dispatchEvent(new Event(CANCEL_ALL));
         this.props.cancelAll();
     }
@@ -63,12 +71,13 @@ class ConnectedApp extends React.Component {
                 return card.desc + ". "
             })
         }, "");
-
         const utterence = new SpeechSynthesisUtterance(fullText);
-        const voices = window.speechSynthesis.getVoices();
-        utterence.voice = voices[0];
+        utterence.onend = function () {
+            utterence.stop();
+        };
+        utterence.lang = "en-US";
         speechSynthesis.speak(utterence);
-    }
+        }
 }
 
 

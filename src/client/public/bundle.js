@@ -21537,42 +21537,50 @@ var ConnectedApp = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'header fade' },
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'board-selection' },
-                        _react2.default.createElement(
-                            'button',
-                            { onClick: this.onLoadClick },
-                            'Select'
-                        ),
-                        _react2.default.createElement(
-                            'button',
-                            { className: this.props.hasChanges ? "save button-primary" : "save",
-                                onClick: this.onSaveClick },
-                            'save'
-                        ),
-                        _react2.default.createElement(
-                            'button',
-                            { className: 'cancel', onClick: this.onCancelClick },
-                            'cancel'
-                        )
-                    ),
-                    _react2.default.createElement(
+                    _react2.default.createElement(_Menu2.default, null),
+                    this.props.isPrintView ? _react2.default.createElement(
+                        'button',
+                        { className: 'exit-read-button', onClick: this.props.togglePrintView },
+                        'X'
+                    ) : _react2.default.createElement(
                         'div',
                         null,
                         _react2.default.createElement(
-                            'button',
-                            { className: 'print-view',
-                                onClick: this.props.togglePrintView },
-                            this.props.isPrintView ? "edit" : "read"
+                            'div',
+                            { className: 'select-save-cancel' },
+                            _react2.default.createElement(
+                                'button',
+                                { onClick: this.onLoadClick },
+                                'sel'
+                            ),
+                            _react2.default.createElement(
+                                'button',
+                                { className: this.props.hasChanges ? "save button-primary" : "save",
+                                    onClick: this.onSaveClick },
+                                'save'
+                            ),
+                            _react2.default.createElement(
+                                'button',
+                                { className: 'cancel', onClick: this.onCancelClick },
+                                'canc'
+                            )
                         ),
                         _react2.default.createElement(
-                            'button',
-                            { className: 'print-view', onClick: this.speak },
-                            'speak'
+                            'div',
+                            { className: 'read-speak' },
+                            _react2.default.createElement(
+                                'button',
+                                { className: 'print-view',
+                                    onClick: this.props.togglePrintView },
+                                this.props.isPrintView ? "edit" : "read"
+                            ),
+                            _react2.default.createElement(
+                                'button',
+                                { className: 'print-view', onClick: this.speak },
+                                'spk'
+                            )
                         )
-                    ),
-                    _react2.default.createElement(_Menu2.default, null)
+                    )
                 ),
                 _react2.default.createElement(_Board2.default, null)
             );
@@ -21607,10 +21615,11 @@ var ConnectedApp = function (_React$Component) {
                     return card.desc + ". ";
                 });
             }, "");
-
             var utterence = new SpeechSynthesisUtterance(fullText);
-            var voices = window.speechSynthesis.getVoices();
-            utterence.voice = voices[0];
+            utterence.onend = function () {
+                utterence.stop();
+            };
+            utterence.lang = "en-US";
             speechSynthesis.speak(utterence);
         }
     }]);
@@ -21853,10 +21862,19 @@ var ConnectedCard = function (_React$Component) {
                     "h3",
                     { className: "name" },
                     name
-                ) : _react2.default.createElement("input", { className: "name", value: name, onChange: this.onChange }),
+                ) : _react2.default.createElement(
+                    "div",
+                    { className: "paragraphHeader" },
+                    _react2.default.createElement("input", { className: "name", value: name, onChange: this.onChange }),
+                    _react2.default.createElement(
+                        "a",
+                        { href: this.state.shortUrl, target: "_blank" },
+                        "open card"
+                    )
+                ),
                 this.props.isPrintView ? _react2.default.createElement(
                     "div",
-                    { className: "desc" },
+                    { className: this.state.isSpeaking ? "desc" : "desc speaking" },
                     desc
                 ) : _react2.default.createElement(_reactTextareaAutosize2.default, { className: "desc", value: desc, onChange: this.onChange })
             );
@@ -22463,7 +22481,7 @@ exports.i(__webpack_require__(82), "");
 exports.i(__webpack_require__(83), "");
 
 // module
-exports.push([module.i, "body {\n  color: #000316;\n}\n.bordered {\n  border: dashed white 1px;\n}\nul,\nbody,\nul ul {\n  padding: 0;\n  margin: 0;\n}\nh2 {\n  font-weight: bolder;\n  font-size: 1.5em;\n  text-align: center;\n  page-break-before: always;\n}\nli {\n  list-style: none;\n  margin: 10px;\n  padding: 10px;\n}\ntextarea,\ninput,\nbutton {\n  outline: none;\n}\nbutton {\n  background-color: #A2AEA4;\n  border: none;\n  color: white;\n}\nbutton:hover,\nbutton :focus {\n  color: white;\n  background-color: #5F7270;\n}\nbutton.button-primary {\n  background-color: #618778;\n  border: none;\n}\nbutton.button-primary:hover,\nbutton.button-primary :focus {\n  color: white;\n  border: none;\n  background-color: #5F7270;\n}\n.header {\n  text-align: center;\n  font-size: 19px;\n  margin: 20px;\n}\n.header * {\n  vertical-align: top;\n}\n.header button {\n  width: 110px;\n  margin: 10px;\n  height: 38px;\n  font-size: 14px;\n  padding: 0 24px;\n  text-align: center;\n}\n.header button:focus {\n  color: white;\n}\n.header input {\n  height: 34px;\n  padding-left: 10px;\n  width: 98px;\n  margin: 10px;\n  border: 1px solid #bbb;\n  border-radius: 4px;\n}\n.menu .boards li {\n  cursor: pointer;\n  background-color: #1E2B3E;\n  display: inline-block;\n  padding: 13px 32px;\n  color: white;\n  border-radius: 10px;\n  font-weight: bold;\n  font-size: 21px;\n  text-transform: uppercase;\n  transition: font-size 0.1s;\n}\n.menu .boards li:hover {\n  background-color: #000316;\n  background-image: none!important;\n}\n.fade {\n  animation: fade 0.7s;\n  opacity: 1;\n}\n@keyframes fade {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n.app {\n  text-align: center;\n}\n.script-hero {\n  text-align: center;\n  max-width: 900px;\n  margin-left: auto;\n  margin-right: auto;\n}\n.card {\n  text-align: left;\n  border: dashed white 1px;\n  width: calc(100% - (4 * 10px));\n}\n.card.edited {\n  border-color: #618778;\n}\n.card > *:not(h3) {\n  display: inline-block;\n}\n.card textarea,\n.card input {\n  background: none;\n  border: none;\n  resize: none;\n  overflow: hidden;\n}\n.card textarea {\n  display: inline-block;\n  height: 70;\n  font-size: 14px;\n  vertical-align: top;\n  margin: 0;\n  width: 100%;\n}\n.card input {\n  width: 100%;\n}\n.card .name {\n  display: block;\n  font-size: 1.17em;\n  font-weight: bold;\n  margin: 10px 0 0 10px;\n  margin-right: -10px;\n  padding-bottom: 10px;\n}\n.card .desc {\n  white-space: pre-line;\n}\n.card h3.name {\n  margin: 10px 0 0 0;\n}\n.print * {\n  border: none;\n  border-right: none!important;\n}\n.print .card .desc {\n  width: 100%;\n}\n.print .title-and-buttons {\n  display: none;\n}\n", ""]);
+exports.push([module.i, "body {\n  color: #000316;\n}\nul,\nbody,\nul ul {\n  padding: 0;\n  margin: 0;\n}\nh2 {\n  font-weight: bolder;\n  font-size: 1.5em;\n  text-align: center;\n  page-break-before: always;\n}\nli {\n  list-style: none;\n  margin: 10px;\n  padding: 10px;\n}\ntextarea,\ninput,\nbutton {\n  outline: none;\n}\nbutton {\n  background-color: #A2AEA4;\n  border: none;\n  color: white;\n}\nbutton:hover,\nbutton :focus {\n  color: white;\n  background-color: #5F7270;\n}\nbutton.button-primary {\n  background-color: #618778;\n  border: none;\n}\nbutton.button-primary:hover,\nbutton.button-primary :focus {\n  color: white;\n  border: none;\n  background-color: #5F7270;\n}\n.header {\n  text-align: center;\n  font-size: 19px;\n  position: fixed;\n  background: white;\n  margin: 0;\n  bottom: 60px;\n  left: 0;\n  width: 100%;\n  z-index: 10;\n}\n.header * {\n  vertical-align: top;\n}\n.header button {\n  width: 42px;\n  margin: 10px 4px;\n  height: 60px;\n  font-size: 10px;\n  padding: 0;\n  text-align: center;\n}\n.header button:focus {\n  color: white;\n}\n.header input {\n  height: 34px;\n  padding-left: 10px;\n  width: 98px;\n  margin: 10px;\n  border: 1px solid #bbb;\n  border-radius: 4px;\n}\n.header .select-save-cancel,\n.header .read-speak {\n  bottom: 0px;\n  margin-bottom: -66px;\n}\n.header .select-save-cancel > *,\n.header .read-speak > * {\n  display: block;\n}\n.header .select-save-cancel {\n  position: absolute;\n  left: 0;\n}\n.header .read-speak {\n  position: absolute;\n  right: 0;\n}\n.header .exit-read-button {\n  position: absolute;\n  left: 0;\n  bottom: -66px;\n  width: 32px;\n}\n.menu {\n  margin: 0 37px;\n}\n.menu .boards li {\n  width: 80%;\n  cursor: pointer;\n  background-color: #1E2B3E;\n  display: inline-block;\n  padding: 7px 13px;\n  color: white;\n  border-radius: 10px;\n  font-weight: bold;\n  font-size: 14px;\n  text-transform: uppercase;\n  transition: font-size 0.1s;\n  background-size: cover;\n}\n.menu .boards li:hover {\n  background-color: #000316;\n  background-image: none !important;\n}\n.fade {\n  animation: fade 0.7s;\n  opacity: 1;\n}\n@keyframes fade {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n.app {\n  text-align: center;\n}\n.script-hero {\n  text-align: center;\n  max-width: 900px;\n  margin-left: auto;\n  margin-right: auto;\n}\n.card {\n  text-align: left;\n  border: 1px dashed white;\n  width: calc(100% - (4 * 10px));\n}\n.card.edited {\n  border-color: #618778;\n}\n.card > *:not(h3) {\n  display: inline-block;\n}\n.card textarea,\n.card input {\n  background: none;\n  border: none;\n  resize: none;\n  overflow: hidden;\n}\n.card textarea {\n  display: inline-block;\n  height: 70;\n  font-size: 14px;\n  vertical-align: top;\n  margin: 0;\n  width: 100%;\n}\n.card input {\n  width: 100%;\n}\n.card .paragraphHeader > * {\n  display: inline-block;\n}\n.card .paragraphHeader a {\n  margin: 10px;\n}\n.card .paragraphHeader .name {\n  display: block;\n  font-size: 1.17em;\n  font-weight: bold;\n  margin: 10px 0 0 10px;\n  margin-right: -10px;\n  padding-bottom: 10px;\n}\n.card .desc {\n  white-space: pre-line;\n}\n.card h3.name {\n  margin: 10px 0 0 0;\n  font-size: 2rem;\n}\n.print * {\n  border: none;\n  border-right: none !important;\n}\n.print .card .desc {\n  width: 100%;\n}\n.print .title-and-buttons {\n  display: none;\n}\n@media print {\n  button {\n    display: none;\n  }\n}\n", ""]);
 
 // exports
 

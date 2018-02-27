@@ -20,10 +20,14 @@ class ConnectedCard extends React.Component {
         return <li className={this.state.isEdited ? 'card edited' : 'card fade'}>
             {this.props.isPrintView ?
                 <h3 className="name">{name}</h3>
-                : <input className="name" value={name} onChange={this.onChange}/>
+                : <div className="paragraphHeader">
+                    <input className="name" value={name} onChange={this.onChange}/>
+                    <a href={this.state.shortUrl} target="_blank">open card</a>
+                </div>
+
             }
             {this.props.isPrintView ?
-                <div className="desc">{desc}</div>
+                <div className={this.state.isSpeaking ? "desc" : "desc speaking"}>{desc}</div>
                 : <Textarea className="desc" value={desc} onChange={this.onChange}/>
             }
         </li>

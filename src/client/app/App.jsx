@@ -77,7 +77,7 @@ class ConnectedApp extends React.Component {
         };
         utterence.lang = "en-US";
         speechSynthesis.speak(utterence);
-        }
+    }
 }
 
 

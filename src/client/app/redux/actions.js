@@ -35,7 +35,6 @@ export function cardEdited(){
 export function authorize() {
     return dispatch => {
         Trello.authorize({
-            type: 'popup',
             name: 'Script Hero',
             scope: {
                 read: 'true',
